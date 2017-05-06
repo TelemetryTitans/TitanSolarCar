@@ -33,6 +33,7 @@ void turnAng(int angle) {
   if (digitalRead(centerB)) digitalWrite(centerB, LOW);
   if (digitalRead(rightG)) digitalWrite(rightG, LOW);
   if (digitalRead(rightR)) digitalWrite(rightR, LOW);
+  
   //Tests angle then sets the LED on that needs to be on based on what the input is
   if (angle < -15) {
     digitalWrite(leftR, HIGH);

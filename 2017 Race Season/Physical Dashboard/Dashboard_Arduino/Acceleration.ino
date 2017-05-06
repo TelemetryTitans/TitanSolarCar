@@ -19,15 +19,14 @@ void accelerationSetup() {
 
 //METHODS//
 void accelLED(float delta) {
-  ////////////////////////////////
-  ////ACCELERATION READ METHOD////
-  ////////////////////////////////
+  //Turn off LEDs that were on to be reset later
   if (digitalRead(accelR)) digitalWrite(accelR, LOW);
   if (digitalRead(accelG)) digitalWrite(accelG, LOW);
   if (digitalRead(stableB)) digitalWrite(stableB, LOW);
   if (digitalRead(decelG)) digitalWrite(decelG, LOW);
   if (digitalRead(decelR)) digitalWrite(decelR, LOW);
 
+  //Test angle and set LED on based on cool stuff a.k.a. data
   if (delta < -2) {
     digitalWrite(accelR, HIGH);
   }

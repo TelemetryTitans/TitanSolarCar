@@ -21,7 +21,8 @@ void blinkersSetup() {
   pinMode(leftRelay, OUTPUT);
   pinMode(hazardIn, INPUT_PULLUP);
   pinMode(hazardRelay, OUTPUT);
-
+  
+  //Attach interrupts to pins as to not eat up clock time
   Timer1.attachInterrupt(blinkR);
   //refer to RIGHT BLINK METHOD
   attachInterrupt(digitalPinToInterrupt(rightIn), switchR, CHANGE);
@@ -38,11 +39,8 @@ void blinkersSetup() {
 }
 
 //METHODS//
+//Method triggered by switch interupt to begin or turn off the right blinker timer
 void switchR() {
-  ////////////////////////////
-  ////RIGHT SWITCH METHOD////
-  //////////////////////////
-
   if (!digitalRead(rightIn) && digitalRead(hazardIn)) {
     Timer1.start(blinkT);
     //Start timer for Right blinker (refer to RIGHT BLINK METHOD)
@@ -53,11 +51,8 @@ void switchR() {
   }
 }
 
-
+//Method triggered by switch interrupt to begin or turn off the left blinker timer
 void switchL() {
-  ////////////////////////////
-  ////LEFT SWITCH METHOD/////
-  //////////////////////////
 
   if (!digitalRead(leftIn) && digitalRead(hazardIn)) {
     Timer2.start(blinkT);
@@ -70,10 +65,9 @@ void switchL() {
 
 }
 
+//Method to turn on hazards
+//hazardous method, not haphazardly coded(hopefully)
 void hazardSwitch() {
-  /////////////////////////////
-  ////HAZARD SWITCH METHOD////
-  ///////////////////////////
   if (!digitalRead(hazardIn)) {
     Timer1.stop();
     Timer2.stop();
@@ -89,29 +83,21 @@ void hazardSwitch() {
 
 }
 
+//Toggle with timers right
+//RIGHT BLINK METHOD
 void blinkR() {
-  ////////////////////////////
-  ////RIGHT BLINK METHOD/////
-  //////////////////////////
   digitalWrite(rightRelay, !digitalRead(rightRelay));
-  //Serial.println("right blink");
-  //use to test
 }
 
+//toggle with timers left
+//LEFT BLINK METHOD
 void blinkL() {
-  ////////////////////////////
-  ////LEFT BLINK METHOD//////
-  //////////////////////////
   digitalWrite(leftRelay, !digitalRead(leftRelay));
-  //Serial.println("left blink");
 }
 
+//toggle with timers hazard
+//HAZARD BLINK METHOD
 void hazardBlink() {
-  /////////////////////////////
-  ////HAZARD BLINK METHOD/////
-  ///////////////////////////
   digitalWrite(rightRelay, !digitalRead(rightRelay));
   digitalWrite(leftRelay, !digitalRead(leftRelay));
-  //Serial.println("hazard blink");
-
 }

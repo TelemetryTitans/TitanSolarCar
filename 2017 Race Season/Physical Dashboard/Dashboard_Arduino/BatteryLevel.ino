@@ -16,9 +16,11 @@ void batLvlSetup() {
 
 //METHODS//
 void batLvl (float voltage) {
+  //Set the initial pin states
   digitalWrite(batL, HIGH);
   digitalWrite(batM, LOW);
   digitalWrite(batH, LOW);
+  //Check Input then set pins high based on input
   if (voltage >= 48.0) {
     digitalWrite(batM, HIGH);
     if (voltage >= 50.0) {
