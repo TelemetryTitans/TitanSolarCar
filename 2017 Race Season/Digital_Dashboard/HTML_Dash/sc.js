@@ -3,28 +3,6 @@ var refreshRate = 100;
 var json;
 var parsed;
 
-function refresh() {
-    var req = new XMLHttpRequest();
-    console.log("Grabbing Value");
-    req.onreadystatechange = function() {
-        if (req.readyState == 4 && req.status == 200) {
-            json = req.responseText;
-            parsed = JSON.parse(json);
-            document.getElementById('spedometer').innerHTML = parsed.Angle;
-        }
-    }
-    req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
-    req.send(null);
-}
-
-function init() // This is the function the browser first runs when it's loaded.
-{
-    refresh();
-    var int = self.setInterval(function() {
-        refresh()
-    }, refreshRate);
-}
-
 //var mphNew = localStorage.getItem('totalMiles').to;
 var mph = 0;
 var tens;
@@ -41,6 +19,30 @@ var tripdist = 0;
 var tripdistNew;
 var color = '#cecece';
 var some;
+
+function refresh() {
+    var req = new XMLHttpRequest();
+    console.log("Grabbing Value");
+    req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+            json = req.responseText;
+            parsed = JSON.parse(json);
+            rotate = 'rotate(' + parsed.Angle + 'deg)';
+            $('#wheelone').css('transform', rotate)
+            $('#wheeltwo').css('transform', rotate)
+        }
+    }
+    req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
+    req.send(null);
+}
+
+function init() // This is the function the browser first runs when it's loaded.
+{
+    refresh();
+    var int = self.setInterval(function() {
+        refresh()
+    }, refreshRate);
+}
 
 $(document).ready(function() {
     var helloWorld = $('#regTitle').html();
@@ -75,7 +77,6 @@ $(document).ready(function() {
                             degChange = 5;
                         }
                         degree += degChange;
-                        rotate = 'rotate(' + degree.toString() + 'deg)';
                         if (mph < 50) {
                             mph += 1;
                         } else {
@@ -93,10 +94,8 @@ $(document).ready(function() {
                         tripdistNew = tripdist.toFixed(3);
                         //console.log(tripdistNew);
                         $('#ampdraws').html(y.toFixed(3));
-                        //$('#spedometer').html(mph);
+                        $('#spedometer').html(mph);
                         $('#triptext1').html(tripdistNew);
-                        $('#wheelone').css('transform', rotate)
-                        $('#wheeltwo').css('transform', rotate)
                     }, refreshRate);
 
                     setInterval(function() {
