@@ -1,17 +1,20 @@
 //Refresh Rate in Milliseconds (Does not include graph)
 var refreshRate = 100;
+var json;
 
 function refresh()
 {
 		var req = new XMLHttpRequest();
 		console.log("Grabbing Value");
+		var parsed = JSON.parse(json);
 		req.onreadystatechange=function() {
 			if (req.readyState==4 && req.status==200) {
-				document.getElementById('spedometer').innerHTML = req.responseText;
+				document.getElementById('spedometer').innerHTML = parsed.angle;
 			}
 		}
 		req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!! 
 		req.send(null);
+		json = req.responseText;
 }
 
 function init() // This is the function the browser first runs when it's loaded.
