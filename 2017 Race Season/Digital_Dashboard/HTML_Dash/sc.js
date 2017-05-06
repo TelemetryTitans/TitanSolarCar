@@ -9,7 +9,7 @@ function refresh()
 		var parsed = JSON.parse(json);
 		req.onreadystatechange=function() {
 			if (req.readyState==4 && req.status==200) {
-				document.getElementById('spedometer').innerHTML = parsed.angle;
+				document.getElementById('spedometer').innerHTML = parsed.Angle;
 			}
 		}
 		req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!! 
