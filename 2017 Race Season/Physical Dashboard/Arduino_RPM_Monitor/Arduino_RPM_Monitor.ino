@@ -3,16 +3,17 @@ const int numReadings = 10; //number of readings to sue to average the speed or 
 int readings[numReadings]; //array with the length of number of readings to be used to average the speed
 unsigned long average = 0;
 int Index = 0; //Index counter for the average array
-unsigned long total;
+unsigned long total; 
 
-volatile int halfRotations = 0;
+volatile int halfRotations = 0; //Rotations counter that is incremneted everytime the hall effect sensor is triggered.
 unsigned long Hz = 0;
 unsigned long lastMillis =  0;
 const byte interruptPin = 2;
 unsigned int count = 20;
+
 //So every 969.696969 rotations is 1 mile
 //And 16.1616161 rpm is 1 mph
-//
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
