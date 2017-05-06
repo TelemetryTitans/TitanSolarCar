@@ -7,7 +7,7 @@ function refresh()
 		console.log("Grabbing Value");
 		req.onreadystatechange=function() {
 			if (req.readyState==4 && req.status==200) {
-				document.getElementById('trulyCodesFavouriteNumber').innerText = req.responseText;
+				document.getElementById('spedometer').innerHTML = req.responseText;
 			}
 		}
 		req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!! 
@@ -89,7 +89,7 @@ $(document).ready(function() {
                         tripdistNew = tripdist.toFixed(3);
                         //console.log(tripdistNew);
                         $('#ampdraws').html(y.toFixed(3));
-                        $('#spedometer').html(mph);
+                        //$('#spedometer').html(mph);
                         $('#triptext1').html(tripdistNew);
                         $('#wheelone').css('transform', rotate)
                         $('#wheeltwo').css('transform', rotate)
