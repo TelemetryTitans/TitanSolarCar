@@ -1,3 +1,25 @@
+//Refresh Rate in Milliseconds (Does not include graph)
+var refreshRate = 100;
+
+function refresh()
+{
+		var req = new XMLHttpRequest();
+		console.log("Grabbing Value");
+		req.onreadystatechange=function() {
+			if (req.readyState==4 && req.status==200) {
+				document.getElementById('trulyCodesFavouriteNumber').innerText = req.responseText;
+			}
+		}
+		req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!! 
+		req.send(null);
+}
+
+function init() // This is the function the browser first runs when it's loaded.
+{
+	refresh() // Then runs the refresh function for the first time.
+	var int=self.setInterval(function(){refresh()},refreshRate); // Set the refresh() function to run every 10 seconds. [1 second would be 1000, and 1/10th of a second would be 100 etc.
+}
+
 //var mphNew = localStorage.getItem('totalMiles').to;
 var mph = 0;
 var tens;
@@ -14,9 +36,6 @@ var tripdist = 0;
 var tripdistNew;
 var color = '#cecece';
 var some;
-
-//Refresh Rate in Milliseconds (Does not include graph)
-var refreshRate = 100;
 
 
 $(document).ready(function() {
