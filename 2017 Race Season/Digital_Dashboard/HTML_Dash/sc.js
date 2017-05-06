@@ -1,26 +1,28 @@
 //Refresh Rate in Milliseconds (Does not include graph)
 var refreshRate = 100;
 var json;
+var parsed;
 
-function refresh()
-{
-		var req = new XMLHttpRequest();
-		console.log("Grabbing Value");
-		var parsed = JSON.parse(json);
-		req.onreadystatechange=function() {
-			if (req.readyState==4 && req.status==200) {
-				document.getElementById('spedometer').innerHTML = parsed.Angle;
-			}
-		}
-		req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!! 
-		req.send(null);
-		json = req.responseText;
+function refresh() {
+    var req = new XMLHttpRequest();
+    console.log("Grabbing Value");
+    req.onreadystatechange = function() {
+        if (req.readyState == 4 && req.status == 200) {
+            json = req.responseText;
+            parsed = JSON.parse(json);
+            document.getElementById('spedometer').innerHTML = parsed.Angle;
+        }
+    }
+    req.open("GET", 'reload.txt', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
+    req.send(null);
 }
 
 function init() // This is the function the browser first runs when it's loaded.
 {
-	refresh() // Then runs the refresh function for the first time.
-	var int=self.setInterval(function(){refresh()},refreshRate); // Set the refresh() function to run every 10 seconds. [1 second would be 1000, and 1/10th of a second would be 100 etc.
+    refresh();
+    var int = self.setInterval(function() {
+        refresh()
+    }, refreshRate);
 }
 
 //var mphNew = localStorage.getItem('totalMiles').to;
@@ -39,7 +41,6 @@ var tripdist = 0;
 var tripdistNew;
 var color = '#cecece';
 var some;
-
 
 $(document).ready(function() {
     var helloWorld = $('#regTitle').html();
@@ -97,15 +98,15 @@ $(document).ready(function() {
                         $('#wheelone').css('transform', rotate)
                         $('#wheeltwo').css('transform', rotate)
                     }, refreshRate);
-                    
+
                     setInterval(function() {
-                      var x = (new Date()).getTime(),
-                          // current time
+                        var x = (new Date()).getTime()
+                          , // current time
                         //y = ampdraw,
                         y = some;
-                      series.addPoint([x, y], true, true);
+                        series.addPoint([x, y], true, true);
                     }, 1000);
-                    
+
                 }
             }
         },
@@ -116,9 +117,9 @@ $(document).ready(function() {
                     enabled: false
                 }
             },
-             line:{
+            line: {
                 linecap: 'square',
-                }
+            }
         },
         credits: {
             enabled: false
