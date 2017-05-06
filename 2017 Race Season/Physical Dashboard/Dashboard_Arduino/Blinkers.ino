@@ -12,7 +12,7 @@
 const int blinkT = 500000; //delay time in microseconds
 
 //Initialize Method
-
+//Meant to be called in setup loop in main code to initilaize the functions
 void blinkersSetup() {
   //Set pin modes
   pinMode(rightIn, INPUT_PULLUP);

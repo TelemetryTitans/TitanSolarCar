@@ -8,6 +8,7 @@
 #define decelR 47
 
 //Initilization Method
+//Meant to be called in setup loop in main code to initilaize the functions
 void accelerationSetup() {
   pinMode(accelR, OUTPUT);
   pinMode(accelG, OUTPUT);

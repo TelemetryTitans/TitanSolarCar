@@ -11,7 +11,9 @@
 
 //Turning Angle Maximum
 const int angleMax = 45; //Angle in degrees
+
 //Initialization Method
+//Meant to be called in setup loop in main code to initilaize the functions
 void potentiometerSetup() {
   pinMode(rightR, OUTPUT);
   pinMode(rightG, OUTPUT);
