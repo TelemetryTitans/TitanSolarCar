@@ -13,7 +13,7 @@ const int blinkT = 500000; //delay time in microseconds
 
 //Initialize Method
 
-void blinkers() {
+void blinkersSetup() {
   //Set pin modes
   pinMode(rightIn, INPUT_PULLUP);
   pinMode(rightRelay, OUTPUT);
