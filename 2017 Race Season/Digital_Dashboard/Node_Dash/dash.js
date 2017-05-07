@@ -1,10 +1,17 @@
 var express = require('express');
 var serialport = require('serialport');
+//var SerialPort = serialport.SerialPort;
+
 
 if(process.argv[2]){
-  console.log("tested");
-}
+  var portname1 = process.argv[2];
+  var port1 =  new serialport(portname1, {
+    baudRate : 9600,
+    parser   : serialport.parsers.readline("\r\n")
+  });
 
+}
+console.log("connected serialport to "+portname1);
 var app = express();
 var port = 1000;
 
