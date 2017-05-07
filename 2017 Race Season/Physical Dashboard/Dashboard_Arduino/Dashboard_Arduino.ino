@@ -11,7 +11,7 @@ void setup() {
 }
 
 void loop() {
-  batLvl(52.0);
+  batLvl(52.0, false);
   turnAng(potRead());
   accelLED(0);
 }

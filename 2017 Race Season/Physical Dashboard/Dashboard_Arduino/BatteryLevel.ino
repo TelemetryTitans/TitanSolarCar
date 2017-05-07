@@ -6,6 +6,12 @@
 #define batL 27
 #define lastLap 49
 
+//Setting LEDs
+volatile bool batBoolL = false;
+volatile bool batBoolM = false;
+volatile bool batBoolH = false;
+volatile bool lastLapBool = false;
+
 //Initialization Method
 //Meant to be called in setup loop in main code to initilaize the functions
 void batLvlSetup() {
@@ -15,16 +21,26 @@ void batLvlSetup() {
 }
 
 //METHODS//
-void batLvl (float voltage) {
+void batLvl (float voltage, bool last) {
   //Set the initial pin states
-  digitalWrite(batL, HIGH);
-  digitalWrite(batM, LOW);
-  digitalWrite(batH, LOW);
+  batBoolL = true;
+  batBoolM = false;
+  batBoolH = false;
   //Check Input then set pins high based on input
   if (voltage >= 48.0) {
-    digitalWrite(batM, HIGH);
+    batBoolM = true;
     if (voltage >= 50.0) {
-      digitalWrite(batH, HIGH);
+      batBoolH = true;
     }
   }
+  if (last) {
+    lastLapBool = true;
+  }
+  else {
+    lastLapBool = false;
+  }
+  digitalWrite(batH, batBoolH);
+  digitalWrite(batM, batBoolM);
+  digitalWrite(batL, batBoolL);
+  digitalWrite(lastLap, lastLapBool);
 }

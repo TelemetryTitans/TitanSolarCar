@@ -7,6 +7,13 @@
 #define decelG 45
 #define decelR 47
 
+//Setting LEDs
+volatile bool accelBoolR = false;
+volatile bool accelBoolG = false;
+volatile bool stableBoolB = false;
+volatile bool decelBoolG = false;
+volatile bool decelBoolR = false;
+
 //Initilization Method
 //Meant to be called in setup loop in main code to initilaize the functions
 void accelerationSetup() {
@@ -20,26 +27,35 @@ void accelerationSetup() {
 //METHODS//
 void accelLED(float delta) {
   //Turn off LEDs that were on to be reset later
-  if (digitalRead(accelR)) digitalWrite(accelR, LOW);
-  if (digitalRead(accelG)) digitalWrite(accelG, LOW);
-  if (digitalRead(stableB)) digitalWrite(stableB, LOW);
-  if (digitalRead(decelG)) digitalWrite(decelG, LOW);
-  if (digitalRead(decelR)) digitalWrite(decelR, LOW);
+  if (digitalRead(accelR)) accelBoolR = false;
+  if (digitalRead(accelG)) accelBoolG = false;
+  if (digitalRead(stableB)) stableBoolB = false;
+  if (digitalRead(decelG)) decelBoolG = false;
+  if (digitalRead(decelR)) decelBoolR = false;
 
   //Test angle and set LED on based on cool stuff a.k.a. data
   if (delta < -2) {
-    digitalWrite(accelR, HIGH);
+    accelBoolR = true;
   }
   else if (delta >= -2 && delta < -.5) {
-    digitalWrite(accelG, HIGH);
+    accelBoolG = true;
   }
   else if (delta >= -0.5 && delta <= 0.5) {
-    digitalWrite(stableB, HIGH);
+    stableBoolB = true;
   }
   else if (delta > .5 && delta <= 2 ) {
-    digitalWrite(decelG, HIGH);
+    decelBoolG = true;
   }
   else {
-    digitalWrite(decelR, HIGH);
+    decelBoolR = true;
   }
+  digitalWrite(accelR, accelBoolR);
+  digitalWrite(accelG, accelBoolG);
+  digitalWrite(stableB, stableBoolB);
+  digitalWrite(decelG, decelBoolG);
+  digitalWrite(decelR, decelBoolR);
 }
+
+
+
+
