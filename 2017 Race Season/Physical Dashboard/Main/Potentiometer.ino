@@ -9,6 +9,13 @@
 //Analong In Pins
 #define potIn A0
 
+//Setting LEDs
+volatile bool rightBoolR = false;
+volatile bool rightBoolG = false;
+volatile bool centerBoolB = false;
+volatile bool leftBoolG = false;
+volatile bool leftBoolR = false;
+
 //Turning Angle Maximum
 const int angleMax = 45; //Angle in degrees
 
@@ -28,29 +35,33 @@ void potentiometerSetup() {
 //Method for determining what LEDs on the dashboard to turn on based on an interger input
 void turnAng(int angle) {
   //Checks to turn off LEDs
-  if (digitalRead(leftR)) digitalWrite(leftR, LOW);
-  if (digitalRead(leftG)) digitalWrite(leftG, LOW);
-  if (digitalRead(centerB)) digitalWrite(centerB, LOW);
-  if (digitalRead(rightG)) digitalWrite(rightG, LOW);
-  if (digitalRead(rightR)) digitalWrite(rightR, LOW);
-  
+  if (digitalRead(leftR)) leftBoolR = false;
+  if (digitalRead(leftG)) leftBoolG = false;
+  if (digitalRead(centerB)) centerBoolB = false;
+  if (digitalRead(rightG)) rightBoolG = false;
+  if (digitalRead(rightR)) rightBoolR = false;
+
   //Tests angle then sets the LED on that needs to be on based on what the input is
   if (angle < -15) {
-    digitalWrite(leftR, HIGH);
+    leftBoolR = true;
   }
   else if (angle >= -15 && angle < -5) {
-    digitalWrite(leftG, HIGH);
+    leftBoolG = true;
   }
   else if (angle >= -5 && angle <= 5) {
-    digitalWrite(centerB, HIGH);
+    centerBoolB = true;
   }
   else if (angle > 5 && angle <= 15) {
-    digitalWrite(rightG, HIGH);
+    rightBoolG = true;
   }
   else {
-    digitalWrite(rightR, HIGH);
+    rightBoolR = true;
   }
-
+  digitalWrite(leftR, leftBoolR);
+  digitalWrite(leftG, leftBoolG);
+  digitalWrite(centerB, centerBoolB);
+  digitalWrite(rightG, rightBoolG);
+  digitalWrite(rightR, rightBoolR);
 }
 
 //Method Variables
@@ -60,8 +71,7 @@ float ang;
 //to be printed to the serial line and to the leds on the dashboard
 int potRead() {
   val = analogRead(potIn);
-  ang = angleMax * ((val - 512) / 512);
-  ang = floor(ang);
+  ang = floor(angleMax * ((val - 512) / 512));
   Serial.println(ang);
   return ang;
 }
