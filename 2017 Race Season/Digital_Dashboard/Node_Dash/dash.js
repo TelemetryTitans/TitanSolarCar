@@ -10,6 +10,23 @@ if(process.argv[2]){
     parser   : serialport.parsers.readline("\r\n")
   });
 
+  port1.on('error', function(err){
+    if (err){
+      console.log('ERROR');
+      console.log('Exiting Dashboard');
+      console.log('Error log: ', err.message );
+      process.exit(1);
+    }
+  });
+  port1.on('open', function onOpen() {
+    console.log('Open connection on Serial port: ',portname1);
+  });
+  port1.on('data', function onData(data) {
+    console.log(data);
+  });
+} else {
+  console.log('No serial connections established');
+  console.log('Please specify a serial port for serial data (e.g. node dash COM12)');
 }
 
 var app = express();
@@ -23,5 +40,5 @@ app.get('/', function(req,res){
 });
 
 app.listen(port, function(){
-  console.log('app listening on port ' + port);
+  console.log('Dashboard launched on port: ' + port);
 });
