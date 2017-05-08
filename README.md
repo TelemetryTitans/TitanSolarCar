@@ -26,5 +26,8 @@ secondary and telemetry systems. </p>
   <li>
   Victron Energy - BMV 702
   </li>
+  <li>
+  <a href="http://bit.ly/tsc_telemetryBOM">Full BOM</a>
+  </li>
   </ul>
 <p>© Titan Solar Car 2017 - - - - <a href="https://www.titansolarcar.com">titansolarcar.com</a></p>
