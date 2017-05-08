@@ -12,7 +12,7 @@
 #define sampleTime 100000 // time in microsends for each calculation, 1 second = 1 million microseconds
 #define numMag 2 //number of magnets placed on the wheel
 #define RPMtoMPH 16.161616 //magic number of wheel rpms to mph
-#define readingAverage 10 //number of readings to store and average
+#define readingAverage 2 //number of readings to store and average
 
 volatile int count = 0; //count for how many times the hall effect sensor reads
 int readings[readingAverage]; //array to store the rpm values to be averaged
@@ -31,9 +31,8 @@ void calcRPM() {
   }
   RPM = total / readingAverage;
   MPH = RPM * RPMtoMPH;
-
-  if(index >= 9) index = 0; //loop the index value so we dont get out of bounds errors and other fun breaky stuff
-  
+  index++
+  if(index >= readingAverage) index = 0; //loop the index value so we dont get out of bounds errors and other fun breaky stuff
   //print values to serial to be read by the udoo
   Serial.print("RPM: ");
   Serial.println(RPM); 
