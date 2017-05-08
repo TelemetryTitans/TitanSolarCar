@@ -14,15 +14,15 @@
 #define RPMtoMPH 16.161616 //magic number of wheel rpms to mph
 #define readingAverage 10 //number of readings to store and average
 
-volatile int count = 0;
-int readings[readingAverage];
-int index = 0;
+volatile int count = 0; //count for how many times the hall effect sensor reads
+int readings[readingAverage]; //array to store the rpm values to be averaged
+int index = 0; //for indexing through averaging array
 int total;
 int RPM;
 float MPH;
 //Methods
 void calcRPM() {
-  detachInterrupt(digitalPinToInterrupt(interruptPin));
+  detachInterrupt(digitalPinToInterrupt(interruptPin)); //detach the interrupt so it doesnt break the calculations
 
   //calculations
   readings[index] = 60 * ((count * (sampleTime / 1000000)) / numMag);
@@ -32,14 +32,17 @@ void calcRPM() {
   RPM = total / readingAverage;
   MPH = RPM * RPMtoMPH;
 
-  //exit code
+  if(index >= 9) index = 0; //loop the index value so we dont get out of bounds errors and other fun breaky stuff
+  
+  //print values to serial to be read by the udoo
   Serial.print("RPM: ");
   Serial.println(RPM); 
   Serial.print("MPH: ");
   Serial.println(MPH);
+  //reset varibles
   count = 0;
   total = 0;
-  attachInterrupt(digitalPinToInterrupt(interruptPin), increment, RISING);
+  attachInterrupt(digitalPinToInterrupt(interruptPin), increment, RISING); //reattach the interrupt so code works
 }
 
 void increment() {
