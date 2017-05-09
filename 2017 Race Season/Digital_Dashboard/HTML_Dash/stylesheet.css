@@ -7,7 +7,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     vertical-align: baseline;
 }
 
+
 /* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     display: block;
 }
@@ -182,7 +184,7 @@ table {
 }
 
 #ampss {
-  background: blue;
+    background: blue;
     position: relative;
     top: 0;
     height: 20%;
@@ -224,48 +226,46 @@ table {
     position: relative;
 }
 
-#container{
+#container {
     position: relative;
-    height:100%;
+    height: 100%;
     width: 100%;
 }
 
-#time{
-  background: blue;
-  position: relative;
-  top: 0;
-  height: 12.5%;
+#time {
+    background: blue;
+    position: relative;
+    top: 0;
+    height: 12.5%;
 }
 
-#estTime{
-  font-size: 6vh;
-  float: left;
-  font-family: Arial;
+#estTime {
+    font-size: 6vh;
+    float: left;
+    font-family: Arial;
 }
 
-#estTimes{
-  font-size: 6vh;
-  font-family: Arial;
-  float: right;
-  
+#estTimes {
+    font-size: 6vh;
+    font-family: Arial;
+    float: right;
 }
 
-#miles{
-  background: white;
-  position: relative;
-  top: 0;
-  height: 12.5%;
+#miles {
+    background: white;
+    position: relative;
+    top: 0;
+    height: 12.5%;
 }
 
-#estMile{
-  font-size: 6vh;
-  float: left;
-  font-family: Arial;
+#estMile {
+    font-size: 6vh;
+    float: left;
+    font-family: Arial;
 }
 
-#estMiles{
-  font-size: 6vh;
-  font-family: Arial;
-  float: right;
-  
+#estMiles {
+    font-size: 6vh;
+    font-family: Arial;
+    float: right;
 }
