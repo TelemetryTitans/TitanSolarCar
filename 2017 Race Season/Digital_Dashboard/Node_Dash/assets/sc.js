@@ -22,12 +22,11 @@ var some;
 
 function refresh() {
   var req = new XMLHttpRequest();
-  console.log("Grabbing Value");
   req.onreadystatechange = function() {
     if (req.readyState == 4 && req.status == 200) {
       json = req.responseText;
       parsed = JSON.parse(json);
-      rotate = 'rotate(' + parsed.Angle + 'deg)';
+      rotate = 'rotate(' + (parsed.turnAngle * -1) + 'deg)';
       $('#wheelone').css('transform', rotate)
       $('#wheeltwo').css('transform', rotate)
     }
