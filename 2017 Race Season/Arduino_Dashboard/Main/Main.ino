@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <DueTimer.h>
 
 //Battery LED Placement
@@ -40,6 +42,3 @@ void loop() {
   turnAng(potRead());
   accelLED(0);
 }
-
-
-

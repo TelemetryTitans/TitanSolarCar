@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 //Variables//
 
 //Switch Pins

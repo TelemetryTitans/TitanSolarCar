@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 //the steering column turns 1.75 turns to max it out from all the way right to all the way left
 //VARIABLES//
 

@@ -2,6 +2,7 @@
 var refreshRate = 100;
 var json;
 var parsed;
+var parsedOne;
 
 //var mphNew = localStorage.getItem('totalMiles').to;
 var mph = 0;
@@ -12,7 +13,7 @@ var rotate;
 var degChange = 5;
 
 //batmon
-var ampdraw;
+var ampdraw = 0;
 var voltage;
 
 var tripdist = 0;
@@ -22,16 +23,32 @@ var some;
 
 function refresh() {
   var req = new XMLHttpRequest();
+  console.log("Grabbing Value");
+  req.onreadystatechange = function() {
+    if (req.readyState == 4 && req.status == 200) {
+      json = req.responseText;
+      parsedOne = JSON.parse(json);
+      ampdraw = parsedOne.ampDraw;
+    }
+  }
+  req.open("GET", 'bmv.json', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
+  req.send(null);
+}
+
+function refreshOne() {
+  var req = new XMLHttpRequest();
+  console.log("Grabbing Value");
   req.onreadystatechange = function() {
     if (req.readyState == 4 && req.status == 200) {
       json = req.responseText;
       parsed = JSON.parse(json);
-      rotate = 'rotate(' + (parsed.turnAngle * -1) + 'deg)';
-      $('#wheelone').css('transform', rotate)
-      $('#wheeltwo').css('transform', rotate)
+      rotate = 'rotate(' + parsed.Angle + 'deg)';
+      $('#topLeft').css('transform', rotate);
+      $('#topRight').css('transform', rotate);
+      
     }
   }
-  req.open("GET", './assets/pot.json', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
+  req.open("GET", 'pot.json', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
   req.send(null);
 }
 
@@ -39,7 +56,8 @@ function init() // This is the function the browser first runs when it's loaded.
 {
   refresh();
   var int = self.setInterval(function() {
-    refresh()
+    refresh(),
+    refreshOne()
   }, refreshRate);
 }
 
@@ -65,35 +83,8 @@ $(document).ready(function() {
           var series = this.series[0];
           setInterval(function() {
             var x = (new Date()).getTime(), // current time
-              //y = ampdraw,
-              y = Math.random();
+              y = ampdraw;
             some = y;
-            if (degree == 45) {
-              degChange = -5;
-            }
-            if (degree == -45) {
-              degChange = 5;
-            }
-            degree += degChange;
-            if (mph < 50) {
-              mph += 1;
-            } else {
-              mph = 1;
-            }
-            if (y > 0.9) {
-              document.getElementById('ampss').style.background = 'red'
-            } else {
-              document.getElementById('ampss').style.background = 'blue'
-            }
-            tripdist += mph / 3600;
-            //mphNew += tripdist;
-            //localStorage.setItem("totalMiles", mphNew);
-            //console.log(localStorage.getItem('totalMiles'))
-            tripdistNew = tripdist.toFixed(3);
-            //console.log(tripdistNew);
-            $('#ampdraws').html(y.toFixed(3));
-            $('#spedometer').html(mph);
-            $('#triptext1').html(tripdistNew);
           }, refreshRate);
 
           setInterval(function() {
@@ -125,16 +116,19 @@ $(document).ready(function() {
     },
     xAxis: {
       type: 'datetime',
-      tickPixelInterval: 500
+      tickPixelInterval: 500,
+      lineColor: '#00a0ff'
     },
     yAxis: {
+      gridLineColor: '#00a0ff',
+      gridLineWidth: 2,
       title: {
         text: ''
       },
       plotLines: [{
         value: 0,
         width: 1,
-        color: '#808080'
+        color: '#'
       }]
     },
     tooltip: {
@@ -167,3 +161,47 @@ $(document).ready(function() {
     }]
   });
 });
+
+
+var height = ($(window).height() * 0.6);
+google.charts.load('current', {'packages':['gauge']});
+google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Speed', 0]
+        ]);
+
+        var options = {
+        	greenColor: '#00a0ff',
+          width: height, height: height,
+          redFrom: 40, redTo: 50,
+          yellowFrom:30, yellowTo: 40,
+          greenFrom:0, greenTo: 30,
+          majorTicks: [0,10,20,30,40,50],
+          minorTicks: 10,
+          max: 50
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('gauge'));
+
+        chart.draw(data, options);
+
+        setInterval(function() {
+          data.setValue(0, 1,mph);
+          options = {
+        	greenColor: '#00a0ff',
+          width: height, height: height,
+          redFrom: 40, redTo: 50,
+          yellowFrom:30, yellowTo: 40,
+          greenFrom:0, greenTo: 30,
+          majorTicks: [0,10,20,30,40,50],
+          minorTicks: 10,
+          max: 50
+        };
+          chart.draw(data, options);
+          height = ($(window).height() * 0.6);
+        }, 1000);
+  }

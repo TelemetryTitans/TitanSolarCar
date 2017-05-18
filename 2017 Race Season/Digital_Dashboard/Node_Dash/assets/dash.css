@@ -1,0 +1,214 @@
+/* !!! RESET DEFAULT CSS !!!*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* !!! RESET DEFAULT CSS !!!*/
+
+/*IMPORT FONT*/
+@font-face {
+    font-family: 'Clock-Face';
+    src: url(digital.ttf);
+}
+/*IMPORT FONT*/
+
+.left{
+  position: absolute;
+  left: 1vw;
+}
+
+#time{
+  height: calc((5/24)*100vh);
+  width: 50vw;
+  background: #00a0ff;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  font-size: calc((5/24)*100vh);
+  font-family: 'Clock-Face';
+  text-align: right;
+  vertical-align: middle;
+  line-height: calc((4/24)*100vh);
+}
+
+#distance{
+  height: calc((5/24)*100vh);
+  width: 50vw;
+  background: #00a0ff;
+  top: calc((5/24)*100vh);
+  left: 0px;
+  position: absolute;
+  font-size: calc((5/24)*100vh);
+  font-family: 'Clock-Face';
+  text-align: right;
+  vertical-align: middle;
+  line-height: calc((4/24)*100vh);
+}
+
+#container{
+  height: calc((5/12)*100vh);
+  width: 50vw;
+  background: white;
+  top: 0px;
+  left: 50vw;
+  position: absolute;
+}
+
+#voltage{
+  top: calc((5/12)*100vh);
+  right: 1vw;
+  position: absolute;
+  font-size: calc((3/24)*100vh);
+  font-family: 'arial';
+  
+}
+
+#gauge {
+  width: 60vh;
+  height: 60vh;
+  border-radius: 50%;
+  background: #3d3d3d;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#speed{
+  position: relative;
+  font-size: 40vh;
+  font-family: 'Clock-Face';
+  top: 5vh;
+  left: 11vh;
+}
+
+#draws{
+  position: absolute;
+  left: 10vw;
+  top: 50vh;
+}
+
+#bodyTop{
+  background: black;
+  height: 1.5vh;
+  width: 7vw;
+}
+
+#bodyTall{
+  position: relative;
+  height: 12.5vh;
+  width: 0.75vw;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 50%;
+  background: black;
+}
+
+#bodyBot{
+  background: black;
+  height: 1.5vh;
+  width: 7vw;
+}
+
+#topLeft{
+  position: absolute;
+  top: 0px;
+  transform: translateY(-40%);
+  height: 7.5vh;
+  width: 0.75vw;
+  background: black;
+}
+
+#topRight{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transform: translateY(-40%);
+  height: 7.5vh;
+  width: 0.75vw;
+  background: black;
+}
+
+#botLeft{
+  position: absolute;
+  bottom: 0px;
+  transform: translateY(40%);
+  height: 7.5vh;
+  width: 0.75vw;
+  background: black;
+}
+
+#botRight{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  transform: translateY(40%);
+  height: 7.5vh;
+  width: 0.75vw;
+  background: black;
+}
+
+#blueBox{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  background: #00a0ff;
+  width: 50vw;
+  height: 35vh;
+  text-align: right;
+}
+
+#Trip{
+  position: relative;
+  height: 50%;
+  line-height: 17.5vh;
+  font-size: 10vh;
+  vertical-align: 30%;
+  font-family: 'Arial';
+}
+
+#TripOne{
+  
+}
+
+#Life{
+  position: relative;
+  height: 50%;
+  line-height: 17.5vh;
+  font-size: 10vh;
+  vertical-align: middle;
+  font-family: 'Arial';
+}
