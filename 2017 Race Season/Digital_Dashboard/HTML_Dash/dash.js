@@ -204,8 +204,3 @@ google.charts.setOnLoadCallback(drawChart);
           chart.draw(data, options);
           height = ($(window).height() * 0.6);
         }, 1000);
-<<<<<<< HEAD:2017 Race Season/Digital_Dashboard/HTML_Dash/dash.js
-  }
-=======
-  }
->>>>>>> bcfaf6b13ed891cc2a65c1d65472945dd5c3b1d3:2017 Race Season/Digital_Dashboard/HTML_Dash/dash.js
