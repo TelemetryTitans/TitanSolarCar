@@ -43,8 +43,8 @@ function refreshOne() {
       json = req.responseText;
       parsed = JSON.parse(json);
       rotate = 'rotate(' + parsed.Angle + 'deg)';
-      $('#topLeft').css('transform', rotate);
-      $('#topRight').css('transform', rotate);
+      $('#topLeft').css('transform', rotate + 'translateY(-40%)');
+      $('#topRight').css('transform', rotate + 'translateY(-40%)');
       
     }
   }

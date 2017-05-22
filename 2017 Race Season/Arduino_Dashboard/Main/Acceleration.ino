@@ -8,6 +8,7 @@
 #define stableB 43
 #define decelG 45
 #define decelR 47
+//trying
 
 //Setting LEDs
 volatile bool accelBoolR = false;
@@ -57,7 +58,3 @@ void accelLED(float delta) {
   digitalWrite(decelG, decelBoolG);
   digitalWrite(decelR, decelBoolR);
 }
-
-
-
-
