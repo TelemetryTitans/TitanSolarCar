@@ -1,8 +1,5 @@
-//Refresh Rate in Milliseconds (Does not include graph)
+//Refresh Rate in Milliseconds (Includes graph)
 var refreshRate = 100;
-var json;
-var parsed;
-var parsedOne;
 
 //var mphNew = localStorage.getItem('totalMiles').to;
 var mph = 0;
@@ -13,7 +10,7 @@ var rotate;
 var degChange = 5;
 
 //batmon
-var ampdraw = 0;
+var ampdraw;
 var voltage;
 
 var tripdist = 0;
@@ -21,44 +18,21 @@ var tripdistNew;
 var color = '#cecece';
 var some;
 
-function refresh() {
-  var req = new XMLHttpRequest();
-  console.log("Grabbing Value");
-  req.onreadystatechange = function() {
-    if (req.readyState == 4 && req.status == 200) {
-      json = req.responseText;
-      parsedOne = JSON.parse(json);
-      ampdraw = parsedOne.ampDraw;
-    }
-  }
-  req.open("GET", 'bmv.json', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
-  req.send(null);
-}
 
-function refreshOne() {
-  var req = new XMLHttpRequest();
-  console.log("Grabbing Value");
-  req.onreadystatechange = function() {
-    if (req.readyState == 4 && req.status == 200) {
-      json = req.responseText;
-      parsed = JSON.parse(json);
-      rotate = 'rotate(' + parsed.Angle + 'deg)';
-      $('#topLeft').css('transform', rotate);
-      $('#topRight').css('transform', rotate);
-      
-    }
-  }
-  req.open("GET", 'pot.json', true); // !!! NEEDS TO CHANGE TO JSON FILEPATH !!!
-  req.send(null);
-}
 
 function init() // This is the function the browser first runs when it's loaded.
 {
-  refresh();
-  var int = self.setInterval(function() {
-    refresh(),
-    refreshOne()
-  }, refreshRate);
+  var socket = io.connect();
+  socket.on('bmv', function(data) {
+    console.log(data);
+    ampdraw = data.V;
+  });
+  socket.on('pot', function(data) {
+    rotate = 'rotate(' + data + 'deg)';
+    $('#topLeft').css('transform', rotate + 'translateY(-40%)');
+    $('#topRight').css('transform', rotate + 'translateY(-40%)');
+  });
+
 }
 
 $(document).ready(function() {
@@ -164,44 +138,54 @@ $(document).ready(function() {
 
 
 var height = ($(window).height() * 0.6);
-google.charts.load('current', {'packages':['gauge']});
+google.charts.load('current', {
+  'packages': ['gauge']
+});
 google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
+function drawChart() {
 
-        var data = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Speed', 0]
-        ]);
+  var data = google.visualization.arrayToDataTable([
+    ['Label', 'Value'],
+    ['Speed', 0]
+  ]);
 
-        var options = {
-        	greenColor: '#00a0ff',
-          width: height, height: height,
-          redFrom: 40, redTo: 50,
-          yellowFrom:30, yellowTo: 40,
-          greenFrom:0, greenTo: 30,
-          majorTicks: [0,10,20,30,40,50],
-          minorTicks: 10,
-          max: 50
-        };
+  var options = {
+    greenColor: '#00a0ff',
+    width: height,
+    height: height,
+    redFrom: 40,
+    redTo: 50,
+    yellowFrom: 30,
+    yellowTo: 40,
+    greenFrom: 0,
+    greenTo: 30,
+    majorTicks: [0, 10, 20, 30, 40, 50],
+    minorTicks: 10,
+    max: 50
+  };
 
-        var chart = new google.visualization.Gauge(document.getElementById('gauge'));
+  var chart = new google.visualization.Gauge(document.getElementById('gauge'));
 
-        chart.draw(data, options);
+  chart.draw(data, options);
 
-        setInterval(function() {
-          data.setValue(0, 1,mph);
-          options = {
-        	greenColor: '#00a0ff',
-          width: height, height: height,
-          redFrom: 40, redTo: 50,
-          yellowFrom:30, yellowTo: 40,
-          greenFrom:0, greenTo: 30,
-          majorTicks: [0,10,20,30,40,50],
-          minorTicks: 10,
-          max: 50
-        };
-          chart.draw(data, options);
-          height = ($(window).height() * 0.6);
-        }, 1000);
-  }
+  setInterval(function() {
+    data.setValue(0, 1, mph);
+    options = {
+      greenColor: '#00a0ff',
+      width: height,
+      height: height,
+      redFrom: 40,
+      redTo: 50,
+      yellowFrom: 30,
+      yellowTo: 40,
+      greenFrom: 0,
+      greenTo: 30,
+      majorTicks: [0, 10, 20, 30, 40, 50],
+      minorTicks: 10,
+      max: 50
+    };
+    chart.draw(data, options);
+    height = ($(window).height() * 0.6);
+  }, 1000);
+}

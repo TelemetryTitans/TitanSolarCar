@@ -3,15 +3,17 @@
 
   <head>
       <!--IMPORT STYLESHEETS-->
-      <link rel="stylesheet" type="text/css" href="./assets/dash.css">
+      <link rel="stylesheet" type="text/css" href="/assets/dash.css">
       <!--IMPORT SCRIPTS-->
-      <script type="text/javascript" src="./assets/jquery-3.1.1.min.js"></script>
-      <script type="text/javascript" src="./assets/loader.js"></script>
-      <script type="text/javascript" src="./assets/highcharts.js"></script>
-      <script type="text/javascript" src="./assets/exporting.js"></script>
-      <script type="text/javascript" src="./assets/dash.js"></script>
+      <script src="socket.io/socket.io.js" charset="utf-8"></script>
+      <script type="text/javascript" src="/assets/jquery-3.1.1.min.js"></script>
+      <script type="text/javascript" src="/assets/loader.js"></script>
+      <script type="text/javascript" src="/assets/highcharts.js"></script>
+      <script type="text/javascript" src="/assets/exporting.js"></script>
+      <script type="text/javascript" src="/assets/dash.js"></script>
   </head>
 
+<body onload="init()">
   <div id="time">
     <a class="left">T:</a>
     00:00.0
@@ -34,9 +36,11 @@
   <div id="voltage">BAT V: 00.00</div>
   <div id="blueBox">
     <div id="Trip">00.00mi</div>
+    <div id="TripOne">00.00mi</div>
     <div id="Life">00.00mi</div>
   </div>
   <!--SPEED-->
   <div id="gauge"></div>
   <div id="gauge1"></div>
+  </body>
 </html>

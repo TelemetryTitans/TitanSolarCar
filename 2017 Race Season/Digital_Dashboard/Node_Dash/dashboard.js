@@ -1,36 +1,65 @@
 // modules
-var SerialPort = require('serialport');
-var express = require('express');
-var usbDetect = require('usb-detection');
-var fs = require('fs');
+var express = require('express')
+var app = express()
+var server = require('http').createServer(app)
+var io = require('socket.io').listen(server)
+var SerialPort = require('serialport')
+var usbDetect = require('usb-detection')
+
 //variables
 var bmvBool = false;
 var potBool = false;
 var parse;
 var serialdata = {};
-var potdata = {};
-var bmvdata = {};
-var app = express();
 var port = 1000;
 //functions
+parseBMV = function(line) {
+  var serial = line.split("\t");
+
+  switch (serial[0]) {
+    case 'V':
+      serialdata.V = Math.floor(serial[1] / 10) / 100;
+      break;
+    case 'VS':
+      serialdata.VS = Math.floor(serial[1] / 10) / 100;
+      break;
+    case 'I':
+      serialdata.I = serial[1];
+      break;
+    case 'SOC':
+      serialdata.SOC = serial[1] / 10;
+      break;
+    case 'CE':
+      serialdata.CE = serial[1];
+      break;
+    case 'VPV':
+      serialdata.VPV = Math.floor(serial[1] / 10) / 100;
+      break;
+    case 'PPV':
+      serialdata.PPV = serial[1];
+      break;
+    case 'PID':
+      serialdata.PID = serial[1];
+      break;
+    case 'H20':
+      serialdata.YT = serial[1];
+      break;
+    case 'H22':
+      serialdata.YY = serial[1];
+      break;
+    case 'BMV':
+      serialdata.BMV = serial[1];
+      serialdata.LONG = serial[1];
+      break;
+  }
+}
 bmv = function(line) {
-  parse_bmv(line);
-  bmvdata = JSON.stringify({
-    mainVoltage: serialdata.V,
-    auxVoltage: serialdata.VS,
-    midpointVoltage: serialdata.VM,
-    batCurrent: serialdata.I,
-    consumedAmpHours: serialdata.CE,
-    soc: serialdata.SOC
-  });
-  fs.writeFile('./assets/bmv.json', bmvdata, 'utf-8');
+  parseBMV(line);
+  io.emit('bmv', serialdata);
 }
 pot = function(line) {
   serialdata.turnAngle = line;
-  potdata = JSON.stringify({
-    turnAngle: serialdata.turnAngle
-  });
-  fs.writeFile('./assets/pot.json', potdata, 'utf-8');
+  io.emit('pot', serialdata.turnAngle);
 }
 dashSetup = function() {
   app.set('view engine', 'ejs', '');
@@ -38,8 +67,11 @@ dashSetup = function() {
   app.get('/', function(req, res) {
     res.render('sc');
   });
-  app.listen(port, function() {
+  server.listen(port, function() {
     console.log('Dashboard launched on port: ' + port);
+    io.on('connection', function(data) {
+      console.log('connected');;
+    });
   });
 }
 findPorts = function() {
@@ -57,7 +89,7 @@ findPorts = function() {
               pot(line);
             });
             serial.on('open', function() {
-              console.log("Serial connection open on ", port.comName);
+              console.log("Arduino Uno connection open on ", port.comName);
               potBool = true;
             });
             serial.on('disconnect', function() {
@@ -74,6 +106,12 @@ findPorts = function() {
                 process.exit(1);
               }
             });
+            process.on('uncaughtException', function(err) {
+              serial.close(function(err) {
+                console.log(port.comName, 'serial port disconnected');
+                potBool = false;
+              });
+            });
           }
           break;
         case '6015':
@@ -86,7 +124,7 @@ findPorts = function() {
               bmv(line);
             });
             serial.on('open', function() {
-              console.log("Serial connection open on ", port.comName);
+              console.log("BMV 702 connection open on ", port.comName);
               bmvBool = true;
             });
             serial.on('disconnect', function() {
@@ -112,46 +150,6 @@ findPorts = function() {
 
     });
   });
-}
-parse_bmv = function(line) {
-  var res = line.split("\t");
-
-  switch (res[0]) {
-    case 'V':
-      serialdata.V = Math.floor(res[1] / 10) / 100;
-      break;
-    case 'VS':
-      serialdata.VS = Math.floor(res[1] / 10) / 100;
-      break;
-    case 'I':
-      serialdata.I = res[1];
-      break;
-    case 'SOC':
-      serialdata.SOC = res[1] / 10;
-      break;
-    case 'CE':
-      serialdata.CE = res[1];
-      break;
-    case 'VPV':
-      serialdata.VPV = Math.floor(res[1] / 10) / 100;
-      break;
-    case 'PPV':
-      serialdata.PPV = res[1];
-      break;
-    case 'PID':
-      serialdata.PID = res[1];
-      break;
-    case 'H20':
-      serialdata.YT = res[1];
-      break;
-    case 'H22':
-      serialdata.YY = res[1];
-      break;
-    case 'BMV':
-      serialdata.BMV = res[1];
-      serialdata.LONG = res[1];
-      break;
-  }
 }
 
 //code that fires
