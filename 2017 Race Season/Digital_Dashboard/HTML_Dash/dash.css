@@ -203,14 +203,14 @@ table {
 #TripOne{
   position: relative;
   height: 50%;
-  font-size: 12vh;
+  font-size: 12vh !important;
   text-align: center;
 }
 
 #TripTwo{
   position: relative;
   height: 50%;
-  font-size: 5vh;
+  font-size: 5vh !important;
   text-align: center;
 }
 
@@ -218,7 +218,6 @@ table {
   position: relative;
   height: 50%;
   line-height: 17.5vh;
-  font-size: 10vh;
   float: right;
   vertical-align: middle;
   font-family: 'Arial';
@@ -227,13 +226,13 @@ table {
 #LifeOne{
   position: relative;
   height: 50%;
-  font-size: 12vh;
+  font-size: 12vh !important;
   text-align: center;
 }
 
 #LifeTwo{
   position: relative;
   height: 50%;
-  font-size: 5vh;
+  font-size: 5vh !important;
   text-align: center;
 }
