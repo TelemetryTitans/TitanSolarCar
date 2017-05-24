@@ -187,21 +187,31 @@ table {
   right: 0px;
   background: #00a0ff;
   width: 50vw;
-  height: 35vh;
-  text-align: right;
+  height: 40vh;
 }
 
 #Trip{
   position: relative;
   height: 50%;
+  width: 20vw;
+  float: right;
   line-height: 17.5vh;
-  font-size: 10vh;
   vertical-align: 30%;
   font-family: 'Arial';
 }
 
 #TripOne{
-  
+  position: relative;
+  height: 50%;
+  font-size: 12vh;
+  text-align: center;
+}
+
+#TripTwo{
+  position: relative;
+  height: 50%;
+  font-size: 5vh;
+  text-align: center;
 }
 
 #Life{
@@ -209,5 +219,21 @@ table {
   height: 50%;
   line-height: 17.5vh;
   font-size: 10vh;
+  float: right;
   vertical-align: middle;
   font-family: 'Arial';
+}
+
+#LifeOne{
+  position: relative;
+  height: 50%;
+  font-size: 12vh;
+  text-align: center;
+}
+
+#LifeTwo{
+  position: relative;
+  height: 50%;
+  font-size: 5vh;
+  text-align: center;
+}
