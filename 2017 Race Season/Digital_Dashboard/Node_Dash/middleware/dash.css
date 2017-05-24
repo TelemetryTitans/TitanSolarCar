@@ -93,7 +93,7 @@ table {
   position: absolute;
   font-size: calc((3/24)*100vh);
   font-family: 'arial';
-  
+
 }
 
 #gauge {
@@ -187,27 +187,52 @@ table {
   right: 0px;
   background: #00a0ff;
   width: 50vw;
-  height: 35vh;
-  text-align: right;
+  height: 40vh;
 }
 
 #Trip{
   position: relative;
   height: 50%;
+  width: 20vw;
+  float: right;
   line-height: 17.5vh;
-  font-size: 10vh;
   vertical-align: 30%;
   font-family: 'Arial';
 }
 
 #TripOne{
-  
+  position: relative;
+  height: 50%;
+  font-size: 12vh !important;
+  text-align: center;
+}
+
+#TripTwo{
+  position: relative;
+  height: 50%;
+  font-size: 5vh !important;
+  text-align: center;
 }
 
 #Life{
   position: relative;
   height: 50%;
   line-height: 17.5vh;
-  font-size: 10vh;
+  float: right;
   vertical-align: middle;
   font-family: 'Arial';
+}
+
+#LifeOne{
+  position: relative;
+  height: 50%;
+  font-size: 12vh !important;
+  text-align: center;
+}
+
+#LifeTwo{
+  position: relative;
+  height: 50%;
+  font-size: 5vh !important;
+  text-align: center;
+}

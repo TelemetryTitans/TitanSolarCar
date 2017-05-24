@@ -102,7 +102,7 @@ findPorts = function() {
             })
             serial.on('data', function(line) {
               pot(line)
-              logger()
+              //logger()
             })
             serial.on('open', function() {
               console.log("Arduino Uno connection open on ", port.comName)
@@ -138,7 +138,7 @@ findPorts = function() {
             })
             serial.on('data', function(line) {
               bmv(line)
-              logger()
+              //  logger()
             })
             serial.on('open', function() {
               console.log("BMV 702 connection open on ", port.comName)
@@ -170,19 +170,6 @@ findPorts = function() {
 }
 
 //code that fires
-serialdata.V = 1
-serialdata.VS = 2
-serialdata.I = 3
-serialdata.SOC = 4
-serialdata.CE = 5
-serialdata.VPV = 6
-serialdata.PVP = 7
-serialdata.PPV = 8
-serialdata.PID = 9
-serialdata.YT = 10
-serialdata.YY = 11
-serialdata.BMV = 12
-serialdata.turnAngle = 13
 dashSetup()
 findPorts()
 usbDetect.on('add', function(device) {
