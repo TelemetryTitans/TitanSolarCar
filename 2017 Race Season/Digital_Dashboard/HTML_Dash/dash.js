@@ -2,10 +2,15 @@ var ampdraw = 0;
 var oldvoltage = 1;
 var voltage = 0;
 
+var oldangle = 1;
+var angle = 0;
+
 var oldmph = 1;
 var mph = 0;
 
 var height = ($(window).height() * 0.6);
+
+var noww = Date.now();
 
 var gaugeOptions = {
     greenColor: '#00a0ff',
@@ -52,9 +57,13 @@ function init() // This is the function the browser first runs when it's loaded.
   });
   //POTENTIOMETER
   socket.on('pot', function(data) {
-    var rotate = 'rotate(' + data + 'deg)';
-    $('#topLeft').css('transform', 'translateY(-40%)' + rotate);
-    $('#topRight').css('transform', 'translateY(-40%)' + rotate);
+    oldangle = angle;
+    angle = data;
+    if(angle != oldangle){
+      var rotate = 'rotate(' + data + 'deg)';
+      $('#topLeft').css('transform', 'translateY(-40%)' + rotate);
+      $('#topRight').css('transform', 'translateY(-40%)' + rotate);
+    }
   });
   //WE NEED SPEED !!!
   socket.on('mph', function(data){
@@ -83,7 +92,8 @@ function lineChart(){
   var line = new google.visualization.LineChart(document.getElementById('container'));
   
   setInterval(function(){
-    lineData.addRow([Date.Now(),voltage]);
+    noww = Date.now();
+    lineData.addRow([noww ,voltage]);
     lineData.removeRow(0);
     line.draw(lineData, lineOptions);
   }, 1000);
