@@ -83,6 +83,7 @@ dashSetup = function() {
   })
   server.listen(port, function() {
     console.log('Dashboard launched on port: ' + port)
+    logger()
     io.on('connection', function(data) {
       console.log('connected')
     })
@@ -169,6 +170,19 @@ findPorts = function() {
 }
 
 //code that fires
+serialdata.V = 1
+serialdata.VS = 2
+serialdata.I = 3
+serialdata.SOC = 4
+serialdata.CE = 5
+serialdata.VPV = 6
+serialdata.PVP = 7
+serialdata.PPV = 8
+serialdata.PID = 9
+serialdata.YT = 10
+serialdata.YY = 11
+serialdata.BMV = 12
+serialdata.turnAngle = 13
 dashSetup()
 findPorts()
 usbDetect.on('add', function(device) {
