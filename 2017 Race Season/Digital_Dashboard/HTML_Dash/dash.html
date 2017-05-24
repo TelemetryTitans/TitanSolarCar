@@ -12,7 +12,8 @@
       <script type="text/javascript" src="dash.js"></script>
   </head>
   
-<body onload="init()">
+  <body onload="init()" style="background: #cecece;">
+
   <div id="time">
     <a class="left">T:</a>
     00:00.0
@@ -34,9 +35,14 @@
   </div>
   <div id="voltage">BAT V: 00.00</div>
   <div id="blueBox">
-    <div id="Trip">00.00mi</div>
-    <div id="TripOne">00.00mi</div>
-    <div id="Life">00.00mi</div>
+    <div id="Trip">
+    <div id="TripOne">00.00</div>
+    <div id="TripTwo">Trip</div>
+    </div>
+    <div id="Life">
+    <div id="LifeOne">00.00</div>
+    <div id="LifeTwo">Life</div>
+    </div>
   </div>
   <!--SPEED-->
   <div id="gauge"></div>
