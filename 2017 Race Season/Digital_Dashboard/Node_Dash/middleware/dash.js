@@ -1,6 +1,7 @@
 var ampdraw = 0;
 var oldvoltage = 1;
 var voltage = 0;
+var stamp = 0
 
 var oldangle = 1;
 var angle = 0;
@@ -25,19 +26,9 @@ var gaugeOptions = {
   max: 50
 };
 
-var lineOptions = {
-  hAxis: {
-    title: 'Time'
-  },
-  vAxis: {
-    title: 'AmpDraw'
-  }
-};
-
 
 function init() // This is the function the browser first runs when it's loaded.
 {
-  lineChart();
   gaugeChart();
   var socket = io.connect();
   //BATTERY MONITOR
@@ -70,7 +61,7 @@ function init() // This is the function the browser first runs when it's loaded.
 }
 
 google.charts.load('current', {
-  'packages': ['gauge', 'line', 'corechart']
+  'packages': ['gauge']
 });
 google.charts.setOnLoadCallback(lineChart, gaugeChart);
 
@@ -154,10 +145,96 @@ function lineChart() {
 
   var line = new google.visualization.LineChart(document.getElementById('container'));
 
-  setInterval(function() {
-    line.draw(lineData, lineOptions);
-  }, 1000);
-}
+  Highcharts.chart('container', {
+    chart: {
+      backgroundColor: '#cecece',
+      plotBackgroundColor: '#cecece',
+      type: 'line',
+      animation: Highcharts.svg,
+      // don't animate in old IE
+      marginRight: 4,
+      events: {
+        load: function() {
+          var series = this.series[0];
+          setInterval(function() {
+            var x = (new Date()).getTime(), // current time
+              //y = ampdraw,
+              y = voltage;
+            console.log(y);
+          }, 1000);
+
+          setInterval(function() {
+            var x = (new Date()).getTime(),
+              // current time
+              //y = ampdraw,
+              y = voltage;
+            series.addPoint([x, y], true, true);
+          }, 1000);
+
+        }
+      }
+    },
+    plotOptions: {
+      series: {
+        enableMouseTracking: false,
+        marker: {
+          enabled: false
+        }
+      },
+      line: {
+        linecap: 'square',
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    title: {
+      text: 'Amp Draw'
+    },
+    xAxis: {
+      type: 'datetime',
+      tickPixelInterval: 500
+    },
+    yAxis: {
+      title: {
+        text: ''
+      },
+      plotLines: [{
+        value: 0,
+        width: 1,
+        color: '#808080'
+      }]
+    },
+    tooltip: {
+      formatter: function() {
+        return '<b>' + this.series.name + '</b><br/>' + Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' + Highcharts.numberFormat(this.y, 2);
+      }
+    },
+    legend: {
+      enabled: false
+    },
+    exporting: {
+      enabled: false
+    },
+    series: [{
+      name: 'Amp Draw',
+      data: (function() {
+        // generate an array of random data
+        var data = [],
+          time = (new Date()).getTime(),
+          i;
+
+        for (i = -19; i <= 0; i += 1) {
+          data.push({
+            x: time + i * 1000,
+            y: 0
+          });
+        }
+        return data;
+      }())
+    }]
+  });
+});
 
 function gaugeChart() {
 

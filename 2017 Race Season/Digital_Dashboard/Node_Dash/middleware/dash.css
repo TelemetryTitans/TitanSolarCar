@@ -125,6 +125,7 @@ table {
   background: black;
   height: 1.5vh;
   width: 7vw;
+  border-radius: 30%;
 }
 
 #bodyTall{
@@ -141,6 +142,7 @@ table {
   background: black;
   height: 1.5vh;
   width: 7vw;
+  border-radius: 30%;
 }
 
 #topLeft{
