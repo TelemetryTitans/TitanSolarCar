@@ -12,7 +12,7 @@ var fs = require('fs')
 var bmvBool = false
 var potBool = false
 var serialdata = {}
-var port = 1000
+var port = 10000	
 var log = fs.createWriteStream('TelemetryLog.csv', {
   'flags': 'a'
 })

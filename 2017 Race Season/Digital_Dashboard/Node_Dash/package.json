@@ -1,8 +1,17 @@
 {
-  "name": "solarcar_dashboard",
-  "version": "1.2.3",
-  "description": "Application to host TitanSolarCar team's dashboard UI",
+  "name": "solarcar-dash",
+  "version": "0.1.0",
+  "description": "Titan Solarcar Digital Dashboard Webserver",
   "main": "dashboard.js",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.3",
+    "json2csv": "^3.7.3",
+    "serialport": "^4.0.7",
+    "socket.io": "^2.0.2",
+    "usb-detection": "^1.4.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,19 +20,13 @@
     "url": "git+https://github.com/TelemetryTitans/TitanSolarCar.git"
   },
   "keywords": [
-    "solarcar"
+    "solarcar",
+    "PAHS"
   ],
-  "author": "John Salazar",
+  "author": "John Salazar, Mikel Serralde",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/TelemetryTitans/TitanSolarCar/issues"
   },
-  "homepage": "https://github.com/TelemetryTitans/TitanSolarCar#readme",
-  "dependencies": {
-    "ejs": "^2.5.6",
-    "express": "^4.15.2",
-    "serialport": "^4.0.7",
-    "socket.io": "^2.0.1",
-    "usb-detection": "^1.4.0"
-  }
+  "homepage": "https://github.com/TelemetryTitans/TitanSolarCar#readme"
 }
