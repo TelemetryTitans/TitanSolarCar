@@ -12,7 +12,7 @@ var fs = require('fs')
 var bmvBool = false
 var potBool = false
 var serialdata = {}
-var port = 10000	
+var port = 10000
 var log = fs.createWriteStream('TelemetryLog.csv', {
   'flags': 'a'
 })
@@ -95,6 +95,8 @@ findPorts = function() {
       switch (port.productId) {
         case '0043':
         case '7523':
+        case '0x7523':
+        case '0x0043':
           if (potBool == false) {
             var serial = new SerialPort(port.comName, {
               baudRate: 115200,
@@ -131,6 +133,7 @@ findPorts = function() {
           }
           break
         case '6015':
+        case '0x6015':
           if (bmvBool == false) {
             var serial = new SerialPort(port.comName, {
               baudRate: 19200,

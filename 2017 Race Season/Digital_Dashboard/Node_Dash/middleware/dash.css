@@ -200,6 +200,7 @@ table {
   line-height: 17.5vh;
   vertical-align: 30%;
   font-family: 'Arial';
+  text-align: center;
 }
 
 #TripOne{
@@ -212,8 +213,14 @@ table {
 #TripTwo{
   position: relative;
   height: 50%;
-  font-size: 5vh !important;
+  font-size: 3vh !important;
   text-align: center;
+  outline: none;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-color: black;
+  background: #00a0ff;
 }
 
 #Life{

@@ -1,18 +1,24 @@
 <!doctype html>
 <html>
-  
+
   <head>
+      <!--IMPORT SOCKET.IO-->
+      <script src="socket.io/socket.io.js" charset="utf8" ></script>
       <!--IMPORT STYLESHEETS-->
-      <link rel="stylesheet" type="text/css" href="dash.css">
+      <link rel="stylesheet" type="text/css" href="/assets/dash.css">
       <!--IMPORT JQUERY-->
-      <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+      <script type="text/javascript" src="/assets/jquery-3.1.1.min.js"></script>
       <!--IMPORT GOOGLE CHARTS-->
-      <script type="text/javascript" src="loader.js"></script> 
+      <script type="text/javascript" src="/assets/loader.js"></script>
+      <!--IMPORT HIGH CHARTS-->
+      <script type="text/javascript" src="/assets/highcharts.js"></script>
+      <script type="text/javascript" src="/assets/exporting.js"></script>
       <!--IMPORT LOCAL JS-->
-      <script type="text/javascript" src="dash.js"></script>
+      <script type="text/javascript" src="/assets/dash.js"></script>
   </head>
-  
-<body onload="init()">
+
+  <body onload="init();" style="background: #cecece;">
+
   <div id="time">
     <a class="left">T:</a>
     00:00.0
@@ -34,9 +40,14 @@
   </div>
   <div id="voltage">BAT V: 00.00</div>
   <div id="blueBox">
-    <div id="Trip">00.00mi</div>
-    <div id="TripOne">00.00mi</div>
-    <div id="Life">00.00mi</div>
+    <div id="Trip">
+    <div id="TripOne">00.00</div>
+    <div id="TripTwo">Trip</div>
+    </div>
+    <div id="Life">
+    <div id="LifeOne">00.00</div>
+    <div id="LifeTwo">Life</div>
+    </div>
   </div>
   <!--SPEED-->
   <div id="gauge"></div>

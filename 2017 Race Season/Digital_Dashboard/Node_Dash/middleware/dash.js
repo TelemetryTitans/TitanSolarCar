@@ -1,3 +1,4 @@
+localStorage.setItem("life", 0);
 var ampdraw = 0;
 var oldvoltage = 1;
 var voltage = 0;
@@ -87,16 +88,15 @@ $(document).ready(function() {
           var series = this.series[0];
           setInterval(function() {
             var x = (new Date()).getTime(), // current time
-              //y = ampdraw,
-              y = voltage;
-            console.log(y);
+              y = ampdraw*-1;
+              //y = voltage;
           }, 1000);
 
           setInterval(function() {
             var x = (new Date()).getTime(),
               // current time
-              //y = ampdraw,
-              y = voltage;
+              y = ampdraw*-1;
+              //y = voltage;
             series.addPoint([x, y], true, true);
           }, 1000);
 
@@ -118,7 +118,7 @@ $(document).ready(function() {
       enabled: false
     },
     title: {
-      text: 'Amp Draw'
+      text: 'Amp Draw (-mA)'
     },
     xAxis: {
       type: 'datetime',
@@ -178,4 +178,21 @@ function gaugeChart() {
   gaugeOptions.height = height;
 
   gauge.draw(gaugeData, gaugeOptions);
+}
+
+var ttwo = true;
+var trop = '<button onclick="odometer();">A</button>';
+function odometer(){
+  switch (ttwo) {
+    case true:
+    //$('TripOne').html(lifeDistance);
+      $('#TripTwo').html('Odometer (Life)');
+      ttwo = false;
+      break;
+    case false:
+    //$('TripOne').html(tripDistance);
+      $('#TripTwo').html('Odometer (Trip)');
+      ttwo = true;
+      break;
+  }
 }
