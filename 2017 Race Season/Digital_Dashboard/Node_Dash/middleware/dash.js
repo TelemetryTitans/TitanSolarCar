@@ -61,10 +61,37 @@ function init() // This is the function the browser first runs when it's loaded.
   socket.on('pot', function(data) {
     oldangle = angle;
     angle = data;
+    angleNo = parseInt(angle) + 65.0;
+    if (angleNo < 45) {
+      g = Math.floor(255 * angleNo / 45);
+      r = 255;
+    } else {
+      if (angleNo < 65) {
+        r = Math.floor(255 * (-1 * (angleNo - 65)) / 20);
+        g = 255;
+      } else {
+        if (angleNo < 85) {
+          r = Math.floor(255 * ((angleNo - 65)) / 20);
+          g = 255;
+        } else {
+          g = Math.ceil(255 * ((-1 * (angleNo - 130)) / 45));
+          r = 255;
+        }
+      }
+    }
+
+
+    var colorVar = "rgb(" + r + "," + g + "," + 0 + ")";
     if (angle != oldangle) {
       var rotate = 'rotate(' + angle + 'deg)';
-      $('#topLeft').css('transform', 'translateY(-40%)' + rotate);
-      $('#topRight').css('transform', 'translateY(-40%)' + rotate);
+      $('#topLeft').css({
+        'transform': 'translateY(-40%)' + rotate,
+        'background-color': colorVar
+      });
+      $('#topRight').css({
+        'transform': 'translateY(-40%)' + rotate,
+        'background-color': colorVar
+      });
     }
   });
   //WE NEED SPEED !!!
