@@ -33,7 +33,8 @@ var gaugeOptions = {
 };
 
 
-function init(){ // This is the function the browser first runs when it's loaded.
+function init() // This is the function the browser first runs when it's loaded.
+{
   gaugeChart();
   var socket = io.connect();
   //BATTERY MONITOR

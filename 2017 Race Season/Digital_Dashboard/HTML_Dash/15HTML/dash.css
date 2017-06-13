@@ -91,9 +91,17 @@ table {
   top: calc((5/12)*100vh);
   right: 1vw;
   position: absolute;
-  font-size: calc((3/24)*100vh);
+  font-size: calc((3/48)*100vh);
   font-family: 'arial';
-  
+
+}
+#secVoltage{
+  top: calc((6/12)*100vh);
+  right: 1vw;
+  position: absolute;
+  font-size: calc((3/48)*100vh);
+  font-family: 'arial';
+
 }
 
 #gauge {
@@ -125,6 +133,7 @@ table {
   background: black;
   height: 1.5vh;
   width: 7vw;
+  border-radius: 30%;
 }
 
 #bodyTall{
@@ -141,6 +150,7 @@ table {
   background: black;
   height: 1.5vh;
   width: 7vw;
+  border-radius: 30%;
 }
 
 #topLeft{
@@ -198,6 +208,7 @@ table {
   line-height: 17.5vh;
   vertical-align: 30%;
   font-family: 'Arial';
+  text-align: center;
 }
 
 #TripOne{
@@ -210,8 +221,14 @@ table {
 #TripTwo{
   position: relative;
   height: 50%;
-  font-size: 5vh !important;
+  font-size: 3vh !important;
   text-align: center;
+  outline: none;
+  border-right: none;
+  border-top: none;
+  border-left: none;
+  border-color: black;
+  background: #00a0ff;
 }
 
 #Life{
