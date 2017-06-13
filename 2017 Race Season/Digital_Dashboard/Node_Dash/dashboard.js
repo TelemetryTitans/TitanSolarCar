@@ -56,6 +56,9 @@ parsebmv = function(line) {
       serialdata.BMV = serial[1]
       serialdata.LONG = serial[1]
       break
+    case 'TTG':
+      serialdata.TTG = serial[1]
+      break;
   }
 }
 logger = function() {

@@ -1,8 +1,13 @@
-localStorage.setItem("life", 0);
+//localStorage.setItem("life", 0);
 var ampdraw = 0;
 var oldvoltage = 1;
 var voltage = 0;
-var stamp = 0
+var oldAux = 1;
+var auxVolt = 0;
+var oldCharge = 1;
+var charge = 0;
+var chargeInt = 0;
+var stamp = 0;
 
 var oldangle = 1;
 var angle = 0;
@@ -37,8 +42,19 @@ function init() // This is the function the browser first runs when it's loaded.
     ampdraw = data.I;
     oldvoltage = voltage; // Non-Repeating Data
     voltage = data.V;
+    oldAux = auxVolt;
+    auxVolt = data.VS;
+    oldCharge = charge;
+    charge = data.TTG;
+    chargeInt = parseInt(charge);
     if (voltage != oldvoltage) {
-      $('#voltage').html('BAT V: ' + voltage);
+      $('#voltage').html('Main V: ' + voltage);
+    }
+    if (auxVolt != oldAux) {
+      $('#secVoltage').html('Aux V: ' + auxVolt);
+    }
+    if (charge != oldCharge) {
+        $('#time').html('<a class="left">D:</a>'+ Math.floor(chargeInt/60) + ":" + (chargeInt-(Math.floor(chargeInt/60)*60)) + ".0");
     }
   });
   //POTENTIOMETER
