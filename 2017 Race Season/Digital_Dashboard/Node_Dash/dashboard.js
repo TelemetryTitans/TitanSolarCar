@@ -1,3 +1,4 @@
+/* global parsebmv:true, logger:true, bmv:true, pot:true, dashSetup:true, findPorts:true */
 // modules
 var express = require('express')
 var app = express()
@@ -9,6 +10,7 @@ var json2csv = require('json2csv')
 var fs = require('fs')
 
 //variables
+var idk = true
 var bmvBool = false
 var potBool = false
 var serialdata = {}
@@ -94,6 +96,9 @@ dashSetup = function() {
 }
 findPorts = function() {
   SerialPort.list(function(err, ports) {
+    if (err) {
+      throw err
+    }
     ports.forEach(function(port) {
       switch (port.productId) {
         case '0043':
@@ -107,7 +112,7 @@ findPorts = function() {
             })
             serial.on('data', function(line) {
               pot(line)
-              //logger()
+                //logger()
             })
             serial.on('open', function() {
               console.log("Arduino Uno connection open on ", port.comName)
@@ -115,6 +120,9 @@ findPorts = function() {
             })
             serial.on('disconnect', function() {
               serial.close(function(err) {
+                if (err) {
+                  throw err
+                }
                 console.log(port.comName, 'serial port disconnected')
                 potBool = false
               })
@@ -128,7 +136,13 @@ findPorts = function() {
               }
             })
             process.on('uncaughtException', function(err) {
+              if (err) {
+                throw err
+              }
               serial.close(function(err) {
+                if (err) {
+                  throw err
+                }
                 console.log(port.comName, 'serial port disconnected')
                 potBool = false
               })
@@ -144,7 +158,7 @@ findPorts = function() {
             })
             serial.on('data', function(line) {
               bmv(line)
-              //  logger()
+                //  logger()
             })
             serial.on('open', function() {
               console.log("BMV 702 connection open on ", port.comName)
@@ -152,6 +166,9 @@ findPorts = function() {
             })
             serial.on('disconnect', function() {
               serial.close(function(err) {
+                if (err) {
+                  throw err
+                }
                 console.log(port.comName, 'serial port disconnected')
                 bmvBool = false
               })
