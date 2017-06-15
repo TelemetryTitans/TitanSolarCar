@@ -18,6 +18,7 @@ var batMon = require("./my_modules/batMon.js");
 var jsArduino = require("./my_modules/jsArduino.js");
 var potArduino = require("./my_modules/potArduino.js");
 var hallArduino = require("./my_modules/hallArduino.js");
+var dashArduino = require("./my_modules/dashArduino.js");
 // module for logging data 
 var json2csv = require('json2csv');
 // built-in file system module for logging function
@@ -47,3 +48,4 @@ potArduino.init();
 //jsArduino.init();
 batMon.init();
 hallArduino.init();
+//dashArduino.init();
