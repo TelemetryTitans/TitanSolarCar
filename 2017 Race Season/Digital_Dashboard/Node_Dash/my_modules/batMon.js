@@ -7,9 +7,10 @@ var webDash = require("./webDash.js");
 var SerialPort = require('serialport');
 
 var bmvBool = false;
+//main json for all data properties to be recorded
 exports.serialdata = {};
 
-//functions
+//function that parses every line coming from the battery monitor and stores important lines
 var parsebmv = function(line) {
     var column = line.split("\t");
 
@@ -53,12 +54,14 @@ var parsebmv = function(line) {
             break;
     }
 };
+// function that passes over parsed data to websocket
 var bmv = function(line) {
     parsebmv(line);
     webDash.io.emit('bmv', exports.serialdata);
 };
-
+// init function for main initialize js code
 exports.init = function() {
+    //search all serial ports of battery monitor
     SerialPort.list(function(err, ports) {
         if (err) {
             throw err;
@@ -68,10 +71,12 @@ exports.init = function() {
                 case '6015':
                 case '0x6015':
                     if (bmvBool == false) {
+                        // open battery monitor serial port 
                         var serial = new SerialPort(port.comName, {
                             baudRate: 19200,
                             parser: SerialPort.parsers.readline('\r\n')
                         });
+                        //running bmv function for every new line sent through serial port
                         serial.on('data', function(line) {
                             bmv(line);
                             //  logger()
@@ -89,6 +94,7 @@ exports.init = function() {
                                 bmvBool = false;
                             });
                         });
+                        //error handling 
                         serial.on('error', function(err) {
                             if (err) {
                                 console.log('ERROR');

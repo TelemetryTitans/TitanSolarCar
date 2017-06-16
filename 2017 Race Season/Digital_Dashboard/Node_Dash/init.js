@@ -44,8 +44,7 @@ webDash.port = 10000;
 
 //Code that will initialize Dashboard Application
 webDash.init();
-potArduino.init();
-//jsArduino.init();
-batMon.init();
-hallArduino.init();
+//potArduino.init();
+//batMon.init();
+//hallArduino.init();
 //dashArduino.init();
