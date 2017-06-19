@@ -6,7 +6,7 @@
 // make sure to first install all the necessary modules NOT INCLUDED , which are listed in package.json (under dependencies) or use 'npm install' command
 
 // my_modules folder contains most of my code (used almost like classes) for the main javascript to run on node
-// middleware folder contains all static files that need to be stored for initial html file to correctly run 
+// middleware folder contains all static files that need to be stored for initial html file to correctly run
 // views folder contains the html file that is served to the client on connection (extension is .ejs)
 
 // find these two modules in the my_modules folder for more information on the code
@@ -15,11 +15,10 @@ var webDash = require("./my_modules/webDash.js");
 //this module is for the battery monitor
 var batMon = require("./my_modules/batMon.js");
 //this module is for the johnny five arduino code
-var jsArduino = require("./my_modules/jsArduino.js");
 var potArduino = require("./my_modules/potArduino.js");
 var hallArduino = require("./my_modules/hallArduino.js");
-var dashArduino = require("./my_modules/dashArduino.js");
-// module for logging data 
+var dashArduino = require("./my_modules/dashPi.js");
+// module for logging data
 var json2csv = require('json2csv');
 // built-in file system module for logging function
 var fs = require('fs');
