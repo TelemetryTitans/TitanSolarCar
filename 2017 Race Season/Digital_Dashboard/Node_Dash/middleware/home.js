@@ -1,3 +1,5 @@
+//DETECT SCREEN SIZE & REDIRECT
+
 function button(){
   var width = $( window ).width();
   if(width < 1000){
