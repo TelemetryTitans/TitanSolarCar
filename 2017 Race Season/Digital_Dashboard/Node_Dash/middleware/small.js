@@ -15,16 +15,15 @@ var oldmph = 1;
 var mph = 0;
 
 function init(){ // This is the function the browser first runs when it's loaded.
-console.log($(window).width());
 var socket = io.connect();
 //BATTERY MONITOR
 socket.on('bmv', function(data) {
   ampdraw = data.I;
   oldvoltage = voltage; // Non-Repeating Data
   voltage = data.V;
-  oldAux = auxVolt;
+  oldAux = auxVolt; // Non-Repeating Data
   auxVolt = data.VS;
-  oldCharge = charge;
+  oldCharge = charge; // Non-Repeating Data
   charge = data.TTG;
   chargeInt = parseInt(charge);
   if (voltage != oldvoltage) {
@@ -34,14 +33,15 @@ socket.on('bmv', function(data) {
     $('#auxV').html('Aux V: ' + auxVolt);
   }
   if (charge != oldCharge) {
-      $('#time').html('<a class="left">T:</a>'+ Math.floor(chargeInt/60) + ":" + (chargeInt-(Math.floor(chargeInt/60)*60)) + ".0");
+      $('#time').html('<a class="left">T:</a>'+ Math.floor(chargeInt/60) + ":" + (chargeInt-(Math.floor(chargeInt/60)*60)) + ".0"); // Original value is in minutes, parses to be in HH:MM:SS
   }
 });
-//POTENTIOMETER
+//POTENTIOMETER (Rotates the wheels)
 socket.on('pot', function(data) {
-  oldangle = angle;
+  oldangle = angle; // Non-Repeating Data
   angle = data;
   angleNo = parseInt(angle) + 65.0;
+  // CHANGES THE COLOR OF THE WHEELS BASED ON THE ANGLE
   if (angleNo < 45) {
     g = Math.floor(255 * angleNo / 45);
     r = 255;
@@ -59,8 +59,6 @@ socket.on('pot', function(data) {
       }
     }
   }
-
-
   var colorVar = "rgb(" + r + "," + g + "," + 0 + ")";
   if (angle != oldangle) {
     var rotate = 'rotate(' + angle + 'deg)';
@@ -74,6 +72,7 @@ socket.on('pot', function(data) {
     });
   }
 });
+
 //WE NEED SPEED !!!
 socket.on('mph', function(data) {
   oldmph = mph;
@@ -83,6 +82,7 @@ socket.on('mph', function(data) {
   }
 });
 }
+
 //Highcharts
 $(document).ready(function() {
   var helloWorld = $('#container').html();
@@ -106,21 +106,19 @@ $(document).ready(function() {
           var series = this.series[0];
           setInterval(function() {
             var x = (new Date()).getTime(), // current time
-              y = ampdraw*-1;
-              //y = voltage;
+              y = ampdraw*-1; // INPUT VALUE !!!
           }, 1000);
 
           setInterval(function() {
             var x = (new Date()).getTime(),
-              // current time
-              y = ampdraw*-1;
-              //y = voltage;
+              y = ampdraw*-1; // INPUT VALUE !!!
             series.addPoint([x, y], true, true);
           }, 1000);
 
         }
       }
     },
+    // FORMAT OPTIONS
     plotOptions: {
       series: {
         enableMouseTracking: false,

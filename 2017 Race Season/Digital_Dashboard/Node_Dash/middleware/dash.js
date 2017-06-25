@@ -17,6 +17,7 @@ var mph = 0;
 
 var height = ($(window).height() * 0.6);
 
+//Gauge Format Options
 var gaugeOptions = {
   greenColor: '#00a0ff',
   width: height,
@@ -41,9 +42,9 @@ function init(){ // This is the function the browser first runs when it's loaded
     ampdraw = data.I;
     oldvoltage = voltage; // Non-Repeating Data
     voltage = data.V;
-    oldAux = auxVolt;
+    oldAux = auxVolt; // Non-Repeating Data
     auxVolt = data.VS;
-    oldCharge = charge;
+    oldCharge = charge; // Non-Repeating Data
     charge = data.TTG;
     chargeInt = parseInt(charge);
     if (voltage != oldvoltage) {
@@ -56,11 +57,12 @@ function init(){ // This is the function the browser first runs when it's loaded
         $('#time').html('<a class="left">T:</a>'+ Math.floor(chargeInt/60) + ":" + (chargeInt-(Math.floor(chargeInt/60)*60)) + ".0");
     }
   });
-  //POTENTIOMETER
+  //POTENTIOMETER (Rotates the wheels)
   socket.on('pot', function(data) {
-    oldangle = angle;
+    oldangle = angle; // Non-Repeating Data
     angle = data;
     angleNo = parseInt(angle) + 65.0;
+    // CHANGES THE COLOR OF THE WHEELS BASED ON THE ANGLE
     if (angleNo < 45) {
       g = Math.floor(255 * angleNo / 45);
       r = 255;
@@ -93,6 +95,7 @@ function init(){ // This is the function the browser first runs when it's loaded
       });
     }
   });
+
   //WE NEED SPEED !!!
   socket.on('mph', function(data) {
     oldmph = mph;
@@ -103,11 +106,13 @@ function init(){ // This is the function the browser first runs when it's loaded
   });
 }
 
+//Gauge Load Function
 google.charts.load('current', {
   'packages': ['gauge']
 });
 google.charts.setOnLoadCallback(gaugeChart);
 
+//Highcharts
 $(document).ready(function() {
   var helloWorld = $('#container').html();
   Highcharts.setOptions({
@@ -130,21 +135,19 @@ $(document).ready(function() {
           var series = this.series[0];
           setInterval(function() {
             var x = (new Date()).getTime(), // current time
-              y = ampdraw*-1;
-              //y = voltage;
+              y = ampdraw*-1; // INPUT VALUE !!!
           }, 1000);
 
           setInterval(function() {
             var x = (new Date()).getTime(),
-              // current time
-              y = ampdraw*-1;
-              //y = voltage;
+              y = ampdraw*-1; // INPUT VALUE !!!
             series.addPoint([x, y], true, true);
           }, 1000);
 
         }
       }
     },
+    // FORMAT OPTIONS
     plotOptions: {
       series: {
         enableMouseTracking: false,
@@ -206,7 +209,7 @@ $(document).ready(function() {
     }]
   });
 });
-
+// GAUGE
 function gaugeChart() {
 
   var gaugeData = google.visualization.arrayToDataTable([
@@ -215,24 +218,24 @@ function gaugeChart() {
   ]);
 
   var gauge = new google.visualization.Gauge(document.getElementById('gauge'));
-
+  // SIZE IS RELATIVE TO SCREEN HEIGHT
   gaugeOptions.width = height;
   gaugeOptions.height = height;
 
   gauge.draw(gaugeData, gaugeOptions);
 }
 
+// Odometer change onClick
 var ttwo = true;
-var trop = '<button onclick="odometer();">A</button>';
 function odometer(){
   switch (ttwo) {
     case true:
-    //$('TripOne').html(lifeDistance);
+    //$('TripOne').html(lifeDistance); //Needs to be added when data comes in for odometer
       $('#TripTwo').html('Odometer (Life)');
       ttwo = false;
       break;
     case false:
-    //$('TripOne').html(tripDistance);
+    //$('TripOne').html(tripDistance); //Needs to be added when data comes in for odometer
       $('#TripTwo').html('Odometer (Trip)');
       ttwo = true;
       break;
