@@ -5,14 +5,17 @@
 //necesary modules for connecting arduino the webserver 
 var batMon = require("./batMon.js");
 var webDash = require("./webDash.js");
+var dashPi = require("./dashPi.js");
 var john = require("johnny-five");
 // init function for main initialize js code
 exports.init = function() {
-    //establish arduino in johnny-five
+    var turnAngle
+        //establish arduino in johnny-five
     var potboard = new john.Board({
+        port: "/dev/ttyACM0",
         id: "Potentiometer",
         repl: false,
-        debug: true
+        debug: false
     });
     //configure arduino for potentiometer
     potboard.on("ready", function() {
@@ -22,9 +25,10 @@ exports.init = function() {
         });
         //sending data over to websocket for webserver
         pot.on("change", function() {
-            console.log(pot.scaleTo(65, -65));
-            batMon.serialdata.turnAngle = pot.scaleTo(65, -65);
-            webDash.io.emit('pot', batMon.serialdata.turnAngle);
+            turnAngle = pot.scaleTo(65, -65);
+            batMon.serialdata.Angle = turnAngle;
+            dashPi.turnLed();
+            webDash.io.emit('pot', batMon.serialdata.Angle);
         });
 
     });

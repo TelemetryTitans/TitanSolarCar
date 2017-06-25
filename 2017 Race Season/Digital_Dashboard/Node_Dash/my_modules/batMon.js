@@ -71,7 +71,7 @@ exports.init = function() {
                 case '6015':
                 case '0x6015':
                     if (bmvBool == false) {
-                        // open battery monitor serial port 
+                        // open battery monitor serial port
                         var serial = new SerialPort(port.comName, {
                             baudRate: 19200,
                             parser: SerialPort.parsers.readline('\r\n')
@@ -94,7 +94,7 @@ exports.init = function() {
                                 bmvBool = false;
                             });
                         });
-                        //error handling 
+                        //error handling
                         serial.on('error', function(err) {
                             if (err) {
                                 console.log('ERROR');

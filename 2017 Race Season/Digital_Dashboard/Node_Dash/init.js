@@ -1,3 +1,4 @@
+/*global thingworxPut*/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Dashboard Application for Titan Solar Car 2016-2017 Race Team designed for telemetry data collection //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,12 +18,13 @@ var batMon = require("./my_modules/batMon.js");
 //this module is for the johnny five arduino code
 var potArduino = require("./my_modules/potArduino.js");
 var hallArduino = require("./my_modules/hallArduino.js");
-var dashArduino = require("./my_modules/dashPi.js");
+var dashPi = require("./my_modules/dashPi.js");
 // module for logging data
 var json2csv = require('json2csv');
 // built-in file system module for logging function
 var fs = require('fs');
-
+//simplified http request module for rest api to thingworx
+var request = require('request');
 //setup for csv logging function
 var log = fs.createWriteStream('TelemetryLog.csv', {
   'flags': 'a'
@@ -37,13 +39,28 @@ logger = function() {
   csv = Date() + "," + csv + "\n";
   log.write(csv, 'utf8');
 };
+var thingworxURL = "https://gj6mbgz0.pp.vuforia.io:8443/Thingworx/Things/SolarCarDevelopment/Properties/*";
+var payload = batMon.serialdata
 
-//specify which port to host webserver on
+//specify which porst to host webserver on
 webDash.port = 10000;
 
 //Code that will initialize Dashboard Application
 webDash.init();
-//potArduino.init();
+hallArduino.init();
+potArduino.init();
 //batMon.init();
-//hallArduino.init();
-//dashArduino.init();
+dashPi.init();
+setTimeout(function() {
+  thingworxPut = setInterval(function() {
+    request({
+      url: thingworxURL,
+      headers: {
+        'Content-Type': 'application/json',
+        'appKey': 'ca8aeabc-129e-485a-8bf5-baaf7e3144a1'
+      },
+      method: 'PUT',
+      json: batMon.serialdata
+    });
+  }, 100);
+}, 500);

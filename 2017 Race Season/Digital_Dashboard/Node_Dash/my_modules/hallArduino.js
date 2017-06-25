@@ -22,9 +22,10 @@ var wheel = 27; //Circumference of the wheel
 exports.init = function() {
     //establush arduino in johnny-five
     var hallboard = new john.Board({
+        port: "/dev/ttyACM1",
         id: "speedometer",
         repl: false,
-        debug: true
+        debug: false
     });
     //configure arduino for hall effect sensor
     hallboard.on("ready", function() {
@@ -35,20 +36,19 @@ exports.init = function() {
         });
         //interrupt style event to count each wheel rotation
         hall.on("change", function() {
-            console.log(hall.value);
             if (hall.value == 1) {
                 rotations++;
                 console.log(rotations);
                 //update odometer
             }
         });
-        hall.on("data", function(){
-          rpm = (rotations * 60) / numMag;
-          console.log("rpm: " + rpm);
-          mph = (60 * (wheel / 12) * Math.PI * rpm) / 5280; // Miles per Hour
-          kmh = mph * 1.609344; // Kilometers per Hour
-          console.log("mph: " + mph);
-          rotations = 0;
+        hall.on("data", function() {
+            rpm = (rotations * 60) / numMag;
+            //console.log("rpm: " + rpm);
+            mph = (60 * (wheel / 12) * Math.PI * rpm) / 5280; // Miles per Hour
+            kmh = mph * 1.609344; // Kilometers per Hour
+            //console.log("mph: " + mph);
+            rotations = 0;
         });
         // call calculation every second
         //setInterval(calcSpeed, 500);
