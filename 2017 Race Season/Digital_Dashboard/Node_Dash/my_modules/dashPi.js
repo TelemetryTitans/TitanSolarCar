@@ -71,10 +71,10 @@ exports.init = function() {
     var stableB = new Gpio(7, {
         mode: Gpio.OUTPUT
     }); //stable blue
-    var decelG = new Gpio(1, {
+    var decelG = new Gpio(6, {
         mode: Gpio.OUTPUT
     }); //decelerator green
-    var decelR = new Gpio(0, {
+    var decelR = new Gpio(5, {
         mode: Gpio.OUTPUT
     }); //decelerator red
     var lastLap = new Gpio(12, {
