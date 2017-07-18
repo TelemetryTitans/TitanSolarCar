@@ -12,6 +12,7 @@ var Gpio = pigpio.Gpio;
 pigpio.configureClock(5, pigpio.CLOCK_PCM); //set polling rate on raspberry pi pins (important for alert event)
 //init function for main initialize js code
 exports.init = function() {
+<<<<<<< HEAD
   //configure pi to manage relays, leds, switches
   //setup all pins to respective job
   var batG = new Gpio(2, {
@@ -80,6 +81,76 @@ exports.init = function() {
   var lastLap = new Gpio(12, {
     mode: Gpio.OUTPUT
   }); //last lap blue
+=======
+    //configure pi to manage relays, leds, switches 
+    //setup all pins to respective job
+    var batG = new Gpio(2, {
+        mode: Gpio.OUTPUT
+    }); // battery Green
+    var batY = new Gpio(3, {
+        mode: Gpio.OUTPUT
+    }); // battery Yellow
+    var batR = new Gpio(4, {
+        mode: Gpio.OUTPUT
+    }); // battery Red
+    var rightSwitch = new Gpio(14, {
+        mode: Gpio.INPUT,
+        pullUpDown: Gpio.PUD_UP,
+        alert: true
+    }); //right switch
+    var leftSwitch = new Gpio(15, {
+        mode: Gpio.INPUT,
+        pullUpDown: Gpio.PUD_UP,
+        alert: true
+    }); // left switch
+    var hazardSwitch = new Gpio(18, {
+        mode: Gpio.INPUT,
+        pullUpDown: Gpio.PUD_UP,
+        alert: true
+    }); // hazard switch
+    var rightRelay = new Gpio(17, {
+        mode: Gpio.OUTPUT
+    }); //right relay
+    var leftRelay = new Gpio(27, {
+        mode: Gpio.OUTPUT
+    }); //left relay
+    var hazardRelay = new Gpio(22, {
+        mode: Gpio.OUTPUT
+    }); //hazard relay
+    var rightR = new Gpio(23, {
+        mode: Gpio.OUTPUT
+    }); //right red
+    var rightG = new Gpio(24, {
+        mode: Gpio.OUTPUT
+    }); //right green
+    var centerB = new Gpio(10, {
+        mode: Gpio.OUTPUT
+    }); //center blue
+    var leftG = new Gpio(9, {
+        mode: Gpio.OUTPUT
+    }); //left green
+    var leftR = new Gpio(11, {
+        mode: Gpio.OUTPUT
+    }); //left red 
+    var accelR = new Gpio(25, {
+        mode: Gpio.OUTPUT
+    }); //accelerator red
+    var accelG = new Gpio(8, {
+        mode: Gpio.OUTPUT
+    }); //accelerator green
+    var stableB = new Gpio(7, {
+        mode: Gpio.OUTPUT
+    }); //stable blue
+    var decelG = new Gpio(6, {
+        mode: Gpio.OUTPUT
+    }); //decelerator green
+    var decelR = new Gpio(5, {
+        mode: Gpio.OUTPUT
+    }); //decelerator red
+    var lastLap = new Gpio(12, {
+        mode: Gpio.OUTPUT
+    }); //last lap blue
+>>>>>>> origin/master
 
   //telling when battery SOC leds to turn on
   if (batMon.serialdata.SOC >= 66) {
