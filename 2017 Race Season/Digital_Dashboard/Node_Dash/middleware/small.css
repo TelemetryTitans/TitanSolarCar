@@ -99,7 +99,7 @@ table {
   height: 0;
   border: solid 150px;
   margin: 0px;
-  border-color: transparent black transparent transparent;
+  border-color: transparent #ffbf00 transparent transparent;
 }
 
 #right{
@@ -111,34 +111,42 @@ table {
   height: 0;
   border: solid 150px;
   margin: 0px;
-  border-color: transparent transparent transparent black;
+  border-color: transparent transparent transparent #ffbf00;
 }
 
 #mainV{
+  height: 12.5vh;
+  width: 50vw;
   position: absolute;
-  top: 81.25vh;
+  top: 50vh;
   left: 50vw;
-  transform: translateX(-50%);
   font-size: 5.5vh;
   font-family: arial;
+  vertical-align: middle;
+line-height: calc((4/24)*100vh);
+text-align: center;
 }
 #auxV{
   position: absolute;
-  top: 87.5vh;
+  height: 12.5;
+  width: 50%;
+  top: 62.5vh;
   left: 50vw;
-  transform: translateX(-50%) ;
   font-size: 5.5vh;
   font-family: arial;
+  vertical-align: top ;
+line-height: calc((5/48)*100vh);
+text-align: center;
 }
 
 #time{
   height: 12.5vh;
-  width: 100%;
+  width: 50%;
   background: #00a0ff;
   top: 50vh;
   left: 0px;
   position: absolute;
-  font-size: 10vh;
+  font-size: 8vh;
   font-family: 'Clock-Face';
   text-align: right;
   vertical-align: middle;
@@ -147,12 +155,12 @@ table {
 
 #distance{
   height: 12.5vh;
-  width: 100%;
+  width: 50%;
   background: #00a0ff;
   top: 62.5vh;
   left: 0px;
   position: absolute;
-  font-size: 10vh;
+  font-size: 8vh;
   font-family: 'Clock-Face';
   text-align: right;
 }
@@ -177,4 +185,26 @@ table {
   background: black;
   width: 3vw;
   height: 15vh;
+}
+
+#container{
+  position: absolute;
+  top: 25vh;
+  left: 0px;
+  height: 25vh;
+  width: 100vw;
+}
+
+#hazard{
+  position: absolute;
+  top: 82.5vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  height: 10vh;
+  width: 10vh;
+}
+
+#haz{
+  width: 10vh;
+  height: 10vh;
 }

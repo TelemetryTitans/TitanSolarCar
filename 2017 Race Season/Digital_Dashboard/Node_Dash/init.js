@@ -16,9 +16,9 @@ var webDash = require("./my_modules/webDash.js");
 //this module is for the battery monitor
 var batMon = require("./my_modules/batMon.js");
 //this module is for the johnny five arduino code
-var potArduino = require("./my_modules/potArduino.js");
-var hallArduino = require("./my_modules/hallArduino.js");
-var dashPi = require("./my_modules/dashPi.js");
+//var potArduino = require("./my_modules/potArduino.js");
+//var hallArduino = require("./my_modules/hallArduino.js");
+//var dashPi = require("./my_modules/dashPi.js");
 // module for logging data
 var json2csv = require('json2csv');
 // built-in file system module for logging function
@@ -49,7 +49,7 @@ webDash.port = 10000;
 webDash.init();
 hallArduino.init();
 potArduino.init();
-//batMon.init();
+batMon.init();
 dashPi.init();
 setTimeout(function() {
   thingworxPut = setInterval(function() {
