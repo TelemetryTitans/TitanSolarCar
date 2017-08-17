@@ -1,18 +1,24 @@
 var ampdraw = 0;
+//used to compare so we don't animate for repeat values
 var oldvoltage = 1;
 var voltage = 0;
+//used to compare so we don't animate for repeat values
 var oldAux = 1;
 var auxVolt = 0;
+//used to compare so we don't animate for repeat values
 var oldCharge = 1;
 var charge = 0;
 var chargeInt = 0;
 
+//used to compare so we don't animate for repeat values
 var oldangle = 1;
 var angle = 0;
 
+//used to compare so we don't animate for repeat values
 var oldmph = 1;
 var mph = 0;
 
+//this defines the socket we are writing to and reading from
 var socket = io();
 
 
@@ -28,13 +34,13 @@ function init() { // This is the function the browser first runs when it's loade
     oldCharge = charge; // Non-Repeating Data
     charge = data.TTG;
     chargeInt = parseInt(charge);
-    if (voltage != oldvoltage) {
+    if (voltage != oldvoltage) { // Non-Repeating Data
       $('#mainV').html('Main V: ' + voltage);
     }
-    if (auxVolt != oldAux) {
+    if (auxVolt != oldAux) { // Non-Repeating Data
       $('#auxV').html('Aux V: ' + auxVolt);
     }
-    if (charge != oldCharge) {
+    if (charge != oldCharge) { // Non-Repeating Data
       $('#time').html('<a class="left">T:</a>' + Math.floor(chargeInt / 60) + ":" + (chargeInt - (Math.floor(chargeInt / 60) * 60)) + ".0"); // Original value is in minutes, parses to be in HH:MM:SS
     }
   });
@@ -44,6 +50,7 @@ function init() { // This is the function the browser first runs when it's loade
     angle = data;
     angleNo = parseInt(angle) + 65.0;
     // CHANGES THE COLOR OF THE WHEELS BASED ON THE ANGLE
+    // INCLUDES SOME HECKIN F U N MATHS
     if (angleNo < 45) {
       g = Math.floor(255 * angleNo / 45);
       r = 255;
@@ -62,7 +69,7 @@ function init() { // This is the function the browser first runs when it's loade
       }
     }
     var colorVar = "rgb(" + r + "," + g + "," + 0 + ")";
-    if (angle != oldangle) {
+    if (angle != oldangle) { //Non-Repeating Data
       var rotate = 'rotate(' + angle + 'deg)';
       $('#wheelOne').css({
         'transform': 'translateY(-40%)' + rotate,
@@ -96,7 +103,7 @@ $(document).ready(function() {
   });
 
   Highcharts.chart('container', {
-    chart: {
+    chart: { //Customization for Highcharts
       backgroundColor: '#cecece',
       plotBackgroundColor: '#cecece',
       type: 'line',
@@ -182,11 +189,12 @@ $(document).ready(function() {
     }]
   });
 });
-
+//variables for left turn signal
 var leftOn = 0;
 var leftColor = 1;
 var leftChange;
 
+//left turn signal trigger / flashing
 function tsl() {
   if (rightOn != 1 && bothOn != 1) {
     if (leftOn == 0) {
@@ -213,10 +221,12 @@ function tsl() {
   }
 }
 
+//variables for right turn signal
 var rightOn = 0;
 var rightColor = 1;
 var rightChange;
 
+//right turn signal triggers / flashing
 function tsr() {
   if (leftOn != 1 && bothOn != 1) {
     if (rightOn == 0) {
@@ -241,10 +251,12 @@ function tsr() {
   }
 }
 
+//variable for hazards
 var bothOn = 0;
 var bothColor = 1;
 var bothChange;
 
+//triggers for hazards
 function tsh() {
   if (bothOn == 0) {
     clearInterval(rightChange);

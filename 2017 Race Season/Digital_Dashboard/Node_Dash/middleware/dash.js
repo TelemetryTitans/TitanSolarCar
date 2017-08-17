@@ -1,20 +1,28 @@
 //localStorage.setItem("life", 0);
 var ampdraw = 0;
+
+//used to compare so we don't animate for repeat values
 var oldvoltage = 1;
 var voltage = 0;
+//used to compare so we don't animate for repeat values
 var oldAux = 1;
 var auxVolt = 0;
+//used to compare so we don't animate for repeat values
 var oldCharge = 1;
 var charge = 0;
+
 var chargeInt = 0;
 var stamp = 0;
 
+//used to compare so we don't animate for repeat values
 var oldangle = 1;
 var angle = 0;
 
+//used to compare so we don't animate for repeat values
 var oldmph = 1;
 var mph = 0;
 
+//declares 3/5 of the window height
 var height = ($(window).height() * 0.6);
 
 //Gauge Format Options
@@ -47,13 +55,13 @@ function init(){ // This is the function the browser first runs when it's loaded
     oldCharge = charge; // Non-Repeating Data
     charge = data.TTG;
     chargeInt = parseInt(charge);
-    if (voltage != oldvoltage) {
+    if (voltage != oldvoltage) { //Non-Repeating Data
       $('#voltage').html('Main V: ' + voltage);
     }
-    if (auxVolt != oldAux) {
+    if (auxVolt != oldAux) { //Non-Repeating Data
       $('#secVoltage').html('Aux V: ' + auxVolt);
     }
-    if (charge != oldCharge) {
+    if (charge != oldCharge) { //Non-Repeating Data
         $('#time').html('<a class="left">T:</a>'+ Math.floor(chargeInt/60) + ":" + (chargeInt-(Math.floor(chargeInt/60)*60)) + ".0");
     }
   });
@@ -63,6 +71,7 @@ function init(){ // This is the function the browser first runs when it's loaded
     angle = data;
     angleNo = parseInt(angle) + 65.0;
     // CHANGES THE COLOR OF THE WHEELS BASED ON THE ANGLE
+    // INCLUDES SOME HECKIN F U N MATHS
     if (angleNo < 45) {
       g = Math.floor(255 * angleNo / 45);
       r = 255;
@@ -83,7 +92,7 @@ function init(){ // This is the function the browser first runs when it's loaded
 
 
     var colorVar = "rgb(" + r + "," + g + "," + 0 + ")";
-    if (angle != oldangle) {
+    if (angle != oldangle) { //Non-Repeating Data
       var rotate = 'rotate(' + angle + 'deg)';
       $('#topLeft').css({
         'transform': 'translateY(-40%)' + rotate,
@@ -123,7 +132,7 @@ $(document).ready(function() {
   });
 
   Highcharts.chart('container', {
-    chart: {
+    chart: { //Highcharts Customization
       backgroundColor: '#cecece',
       plotBackgroundColor: '#cecece',
       type: 'line',

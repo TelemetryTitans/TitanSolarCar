@@ -45,6 +45,9 @@ table {
 }
 /*IMPORT FONT*/
 
+/*THE MAJORITY OF THE CSS IS DONE USING ID's. Refer to the ID and it's position in the HTML file to identify the element the CSS applies to*/
+
+
 #top{
   top: 0px;
   left: 0px;

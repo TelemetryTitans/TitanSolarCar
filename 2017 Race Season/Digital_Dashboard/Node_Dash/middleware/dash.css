@@ -45,10 +45,14 @@ table {
 }
 /*IMPORT FONT*/
 
+
+/*class for catching a couple of mistakes*/
 .left{
   position: absolute;
   left: 1vw;
 }
+
+/*THE MAJORITY OF THE CSS IS DONE USING ID's. Refer to the ID and it's position in the HTML file to identify the element the CSS applies to*/
 
 #time{
   height: calc((5/24)*100vh);
